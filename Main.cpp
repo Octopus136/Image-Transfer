@@ -44,6 +44,7 @@ BOOL Main::OnInitDialog() {
 	Switcher->SetCurSel(0);
 	bar->SetRange(0, 99);
 	bar->SetPos(0);
+	return true;
 }
 
 void Main::DoDataExchange(CDataExchange* pDX)
@@ -54,6 +55,7 @@ void Main::DoDataExchange(CDataExchange* pDX)
 #define BIG_WARNINGS (WM_USER + 1)
 #define UPDATE_PROGRESS (WM_USER + 2)
 #define POST_PROCESS (WM_USER + 3)
+#define BIG_ERROR (WM_USER + 3)
 
 BEGIN_MESSAGE_MAP(Main, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON3, &Main::OnBnClickedButton3)
@@ -67,6 +69,7 @@ BEGIN_MESSAGE_MAP(Main, CDialogEx)
 	ON_MESSAGE(BIG_WARNINGS, Warnings)
 	ON_MESSAGE(UPDATE_PROGRESS, UpdatePrograss)
 	ON_MESSAGE(POST_PROCESS, PostProcess)
+	ON_MESSAGE(BIG_ERROR, BigError)
 END_MESSAGE_MAP()
 
 
@@ -134,7 +137,7 @@ void Main::OnEnChangeEdit3()
 	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
 
 	// TODO:  在此添加控件通知处理程序代码
-}
+}	
 
 
 void Main::OnEnChangeEdit1()
@@ -150,7 +153,7 @@ void Main::OnEnChangeEdit1()
 
 void Main::OnBnClickedButton2()
 {
-	MessageBox(_T("图片大小转换工具v1.2\nPower by Burnside.\n版权所有 (C) 2023\n\n历史版本：\n\nv1.2\n图片转换时主线程不会被阻塞了\n增加了进度条显示目前的转换进度\n\nv1.1:\n图片路径已支持中文\n重写了内核并使处理速度更快\n更新了部分提示词\n增加了大小选择功能\n\nv1.0\n图片大小转换工具诞生"), _T("关于"));
+	MessageBox(_T("图片大小转换工具v1.3\nPower by Burnside.\n版权所有 (C) 2025\n\n历史版本：\n\nv1.3\n图像大小计算转移到了内存中，程序运行更流畅了\n现在转换失败时也不会生成一张废图了\n\nv1.2\n图片转换时主线程不会被阻塞了\n增加了进度条显示目前的转换进度\n\nv1.1:\n图片路径已支持中文\n重写了内核并使处理速度更快\n更新了部分提示词\n增加了大小选择功能\n\nv1.0\n图片大小转换工具诞生"), _T("关于"));
 	// TODO: 在此添加控件通知处理程序代码
 }
 
@@ -187,6 +190,13 @@ LRESULT Main::Warnings(WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
+LRESULT Main::BigError(WPARAM wParam, LPARAM lParam)
+{
+	MessageBox(_T("发生了致命性严重错误！转换失败！"), _T("出错了！"));
+	state = 1;
+	return 0;
+}
+
 LRESULT Main::PostProcess(WPARAM wParam, LPARAM lParam)
 {
 	CProgressCtrl* bar = (CProgressCtrl*)GetDlgItem(IDC_PROGRESS1);
@@ -199,6 +209,8 @@ LRESULT Main::PostProcess(WPARAM wParam, LPARAM lParam)
 	transfer_count = 0;
 	return 0;
 }
+
+
 
 UINT BackgroundTaskThread(LPVOID pParam)
 {
@@ -214,6 +226,7 @@ UINT BackgroundTaskThread(LPVOID pParam)
 		::PostMessage(pWnd->GetSafeHwnd(), BIG_WARNINGS, 0, 0);
 		return 0;
 	}
+	std::vector<uchar> encoded_data;
 	while (l <= r) {
 		transfer_count++;
 		if (transfer_count > 20) {
@@ -221,14 +234,23 @@ UINT BackgroundTaskThread(LPVOID pParam)
 		}
 		double mid = (l + r) / 2;
 		cv::resize(input_img, resize_img, cv::Size(int(1.0 * mid * width), int(1.0 * mid * height)));
-		cv::imwrite(output, resize_img);
-		double now_b = getFileSize(output.c_str());
+		bool success = cv::imencode(".jpg", resize_img, encoded_data);
+		if (!success) {
+			::PostMessage(pWnd->GetSafeHwnd(), BIG_ERROR, 0, 0);
+			return 0;
+		}
+		double now_b = encoded_data.size();
 		::PostMessage(pWnd->GetSafeHwnd(), UPDATE_PROGRESS, 0, 0);
 		if (std::abs(now_b - aim_b) / aim_b < 0.01) {
 			break;
 		}
 		else if (now_b > aim_b) r = mid;
 		else if (now_b < aim_b) l = mid;
+	}
+	if (!state) {
+		std::ofstream file(output, std::ios::binary);
+		file.write(reinterpret_cast<const char*>(encoded_data.data()), encoded_data.size());
+		file.close();
 	}
 	::PostMessage(pWnd->GetSafeHwnd(), POST_PROCESS, 0, 0);
 	return 0;

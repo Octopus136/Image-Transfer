@@ -38,4 +38,5 @@ public:
 	afx_msg LRESULT UpdatePrograss(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT Warnings(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT PostProcess(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT BigError(WPARAM wParam, LPARAM lParam);
 };
