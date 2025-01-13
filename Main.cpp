@@ -315,9 +315,6 @@ void Main::OnBnClickedButton1()
 	}
 	CWinThread* m_pBackgroundThread;
 	m_pBackgroundThread = AfxBeginThread(BackgroundTaskThread, this);
-	// ::WaitForSingleObject(m_pBackgroundThread->m_hThread, INFINITE);
-	// m_pBackgroundThread->Delete();
-	// m_pBackgroundThread = NULL;
 }
 
 
