@@ -1,4 +1,4 @@
-﻿// Main.cpp: 实现文件
+// Main.cpp: 实现文件
 //
 #include "pch.h"
 #include "Image_Transfer.h"
@@ -107,6 +107,7 @@ void Main::OnEnChangeEdit2()
 	// TODO:  在此添加控件通知处理程序代码
 }
 
+std::string ext;
 
 void Main::OnBnClickedButton4()
 {
@@ -121,6 +122,10 @@ void Main::OnBnClickedButton4()
 	if (dlg.DoModal() == IDOK) {
 		SavePath = dlg.GetPathName();
 		SetDlgItemText(IDC_EDIT3, SavePath);
+		CString extCString = dlg.GetFileExt();
+        ext = CT2A(extCString); 
+        std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
+		ext = "." + ext;
 	}
 	else {
 		return;
@@ -153,7 +158,7 @@ void Main::OnEnChangeEdit1()
 
 void Main::OnBnClickedButton2()
 {
-	MessageBox(_T("图片大小转换工具v1.3\nPower by Burnside.\n版权所有 (C) 2025\n\n历史版本：\n\nv1.3\n图像大小计算转移到了内存中，程序运行更流畅了\n现在转换失败时也不会生成一张废图了\n\nv1.2\n图片转换时主线程不会被阻塞了\n增加了进度条显示目前的转换进度\n\nv1.1:\n图片路径已支持中文\n重写了内核并使处理速度更快\n更新了部分提示词\n增加了大小选择功能\n\nv1.0\n图片大小转换工具诞生"), _T("关于"));
+	MessageBox(_T("图片大小转换工具v1.3\nPower by Burnside.\n版权所有 (C) 2025\n\n历史版本：\n\nv1.3\n图像大小计算转移到了内存中，程序运行更流畅了\n现在转换失败时也不会生成一张废图了\nPNG的Alpha通道可以被正确保留了\n\nv1.2\n图片转换时主线程不会被阻塞了\n增加了进度条显示目前的转换进度\n\nv1.1:\n图片路径已支持中文\n重写了内核并使处理速度更快\n更新了部分提示词\n增加了大小选择功能\n\nv1.0\n图片大小转换工具诞生"), _T("关于"));
 	// TODO: 在此添加控件通知处理程序代码
 }
 
@@ -215,7 +220,7 @@ LRESULT Main::PostProcess(WPARAM wParam, LPARAM lParam)
 UINT BackgroundTaskThread(LPVOID pParam)
 {
 	Main* pWnd = (Main*)pParam;
-	cv::Mat input_img = cv::imread(input);
+	cv::Mat input_img = cv::imread(input, cv::IMREAD_UNCHANGED);
 	int height = input_img.rows;
 	int width = input_img.cols;
 	cv::Mat resize_img;
@@ -234,7 +239,7 @@ UINT BackgroundTaskThread(LPVOID pParam)
 		}
 		double mid = (l + r) / 2;
 		cv::resize(input_img, resize_img, cv::Size(int(1.0 * mid * width), int(1.0 * mid * height)));
-		bool success = cv::imencode(".jpg", resize_img, encoded_data);
+		bool success = cv::imencode(ext, resize_img, encoded_data);
 		if (!success) {
 			::PostMessage(pWnd->GetSafeHwnd(), BIG_ERROR, 0, 0);
 			return 0;
