@@ -1,0 +1,14 @@
+{
+  "name": "imagetransfer",
+  "version-string": "2.0.0",
+  "dependencies": [
+    {
+      "name": "opencv4",
+      "default-features": false,
+      "features": [
+        "jpeg",
+        "png"
+      ]
+    }
+  ]
+}

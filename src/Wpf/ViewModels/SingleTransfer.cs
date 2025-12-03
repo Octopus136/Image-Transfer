@@ -1,0 +1,295 @@
+﻿using Stylet;
+using ImageTransfer.Bridge;
+using System;
+using System.Threading.Tasks;
+using BridgeSingleTransfer = ImageTransfer.Bridge.SingleTransfer;
+using BridgeTransferResult = ImageTransfer.Bridge.TransferResult;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
+using System.Windows;
+using System.Globalization;
+using System.IO;
+
+namespace ImageTransfer.Wpf
+{
+    public class SingleTransfer : Screen
+    {
+
+        private long _sourceBytes;
+        public long SourceBytes
+        {
+            get => _sourceBytes;
+            private set => SetAndNotify(ref _sourceBytes, value);
+        }
+        private void UpdateSourceFileSize()
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(_inputPath) && File.Exists(_inputPath))
+                {
+                    SourceBytes = new FileInfo(_inputPath).Length;
+                }
+                else
+                {
+                    SourceBytes = 0;
+                }
+            }
+            catch
+            {
+                SourceBytes = 0;
+            }
+        }
+
+        private string _inputPath = "";
+        public string InputPath
+        {
+            get => _inputPath;
+            set
+            {
+                if (SetAndNotify(ref _inputPath, value))
+                {
+                    UpdateSourceFileSize();
+                    NotifyOfPropertyChange(nameof(CanConvert));
+                }
+            }
+        }
+
+        private string _outputPath = "";
+        public string OutputPath
+        {
+            get => _outputPath;
+            set
+            {
+                if (SetAndNotify(ref _outputPath, value))
+                {
+                    NotifyOfPropertyChange(nameof(CanConvert));
+                }
+            }
+        }
+
+        private string _targetSize = "";
+        public string TargetSize
+        {
+            get => _targetSize;
+            set
+            {
+                if (SetAndNotify(ref _targetSize, value))
+                {
+                    ValidateTargetSize();
+                    NotifyOfPropertyChange(nameof(CanConvert));
+                }
+            }
+        }
+
+        private string _unit = "MB";
+        public string Unit
+        {
+            get => _unit;
+            set
+            {
+                if (value == _unit)
+                    return;
+
+                var oldUnit = _unit;
+
+                if (SetAndNotify(ref _unit, value))
+                {
+                    NotifyOfPropertyChange(nameof(CanConvert));
+                    ConvertTargetSizeBetweenUnits(oldUnit, _unit);
+                }
+            }
+        }
+
+        private int _progress;
+        public int Progress
+        {
+            get => _progress;
+            set => SetAndNotify(ref _progress, value);
+        }
+
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                if (SetAndNotify(ref _isBusy, value))
+                {
+                    NotifyOfPropertyChange(nameof(CanConvert));
+                }
+            }
+        }
+
+        private static readonly Regex _regex = new(@"^(0\.[0-9]+|[1-9]\d*(\.\d+)?)$");
+
+        private string _targetSizeError = "";
+        public string TargetSizeError
+        {
+            get => _targetSizeError;
+            private set
+            {
+                if (SetAndNotify(ref _targetSizeError, value))
+                {
+                    NotifyOfPropertyChange(nameof(IsTargetSizeValid));
+                }
+            }
+        }
+
+        public bool IsTargetSizeValid => string.IsNullOrEmpty(TargetSizeError);
+
+        private void ValidateTargetSize()
+        {
+            if (string.IsNullOrWhiteSpace(_targetSize))
+            {
+                TargetSizeError = "请输入目标大小";
+                return;
+            }
+
+            if (!_regex.IsMatch(_targetSize))
+            {
+                TargetSizeError = "请输入大于 0 的数字";
+                return;
+            }
+
+            TargetSizeError = null;
+        }
+
+        private void ConvertTargetSizeBetweenUnits(string fromUnit, string toUnit)
+        {
+            if (!IsTargetSizeValid)
+                return;
+
+            if (string.IsNullOrWhiteSpace(TargetSize))
+                return;
+
+            if (!decimal.TryParse(TargetSize, NumberStyles.Float, CultureInfo.CurrentCulture, out var size))
+                return;
+
+            decimal result = size;
+
+            if (fromUnit == "KB" && toUnit == "MB")
+            {
+                result = size / 1024m;
+            }
+            else if (fromUnit == "MB" && toUnit == "KB")
+            {
+                result = size * 1024m;
+            }
+
+            TargetSize = result.ToString("0.####", CultureInfo.CurrentCulture);
+        }
+
+
+        // 浏览输入文件
+        public void BrowseInput()
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "图片文件|*.png;*.jpg;*.jpeg|所有文件|*.*"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                InputPath = dialog.FileName;
+
+                var dir = System.IO.Path.GetDirectoryName(InputPath);
+                var name = System.IO.Path.GetFileNameWithoutExtension(InputPath);
+                var ext = System.IO.Path.GetExtension(InputPath);
+                OutputPath = System.IO.Path.Combine(dir ?? string.Empty, $"{name}_output{ext}");
+            }
+        }
+
+        // 浏览输出文件
+        public void BrowseOutput()
+        {
+            var dialog = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = "图片文件|*.png;*.jpg;*.jpeg|所有文件|*.*",
+                FileName = OutputPath
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                OutputPath = dialog.FileName;
+            }
+        }
+
+        // 关于
+        public void About()
+        {
+            HandyControl.Controls.MessageBox.Info("这里什么都没有哦", "关于");
+        }
+
+        // 开始转换
+        public async void Convert()
+        {
+            if (IsBusy) return;
+
+            if (string.IsNullOrWhiteSpace(InputPath) || string.IsNullOrWhiteSpace(OutputPath))
+            {
+                HandyControl.Controls.MessageBox.Error("未选择输入与输出路径");
+                return;
+            }
+            if (!double.TryParse(TargetSize, out var target) || target <= 0)
+            {
+                HandyControl.Controls.MessageBox.Error("目标大小不是合法数字");
+                return;
+            }
+
+            long targetBytes = Unit == "KB"
+                ? (long)(target * 1024)
+                : (long)(target * 1024 * 1024);
+
+            IsBusy = true;
+            Progress = 0;
+
+            try
+            {
+                var (result, errorMessage) = await Task.Run(() =>
+                {
+                    try
+                    {
+                        var transferResult = BridgeSingleTransfer.Convert(
+                            InputPath,
+                            OutputPath,
+                            targetBytes,
+                            SourceBytes,
+                            progress => System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                Progress = progress;
+                            }));
+
+                        var lastError = BridgeSingleTransfer.GetLastError();
+                        return (transferResult, lastError);
+                    }
+                    catch (Exception ex)
+                    {
+                        return (BridgeTransferResult.Failed, ex.Message);
+                    }
+                });
+
+                if (result == BridgeTransferResult.OK)
+                {
+                    HandyControl.Controls.MessageBox.Success("转换成功");
+                }
+                else
+                {
+                    var message = string.IsNullOrWhiteSpace(errorMessage)
+                        ? "转换失败"
+                        : $"转换失败：{errorMessage}";
+                    HandyControl.Controls.MessageBox.Error(errorMessage);
+                }
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public bool CanConvert => !IsBusy
+                                  && !string.IsNullOrWhiteSpace(InputPath)
+                                  && !string.IsNullOrWhiteSpace(OutputPath)
+                                  && !string.IsNullOrWhiteSpace(TargetSize)
+                                  && IsTargetSizeValid;
+    }
+}

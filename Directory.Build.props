@@ -1,0 +1,34 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- vcpkg 基本配置 -->
+  <PropertyGroup>
+    <!-- 仓库内 vcpkg 的位置 -->
+    <VcpkgRoot>$(MSBuildThisFileDirectory)external\vcpkg\</VcpkgRoot>
+
+    <!-- 统一使用 x64-windows -->
+    <VcpkgTriplet>x64-windows</VcpkgTriplet>
+    <VcpkgHostTriplet>$(VcpkgTriplet)</VcpkgHostTriplet>
+
+    <!-- 清单模式：vcpkg.json 在仓库根目录 -->
+    <VcpkgManifestRoot>$(MSBuildThisFileDirectory)</VcpkgManifestRoot>
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+
+    <!-- 直接按文档算出 installed 根：vcpkg_installed\<triplet>\ -->
+    <MyVcpkgInstalledRoot>$(VcpkgManifestRoot)vcpkg_installed\$(VcpkgTriplet)\</MyVcpkgInstalledRoot>
+  </PropertyGroup>
+
+  <!-- 导入 vcpkg 的 MSBuild 集成 -->
+  <Import Project="$(VcpkgRoot)scripts\buildsystems\msbuild\vcpkg.targets"
+          Condition="Exists('$(VcpkgRoot)scripts\buildsystems\msbuild\vcpkg.targets')" />
+
+  <!-- 统一给所有 C++ 项目加上 opencv4 这一层 -->
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>
+        $(MyVcpkgInstalledRoot)include\opencv4;
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+
+</Project>

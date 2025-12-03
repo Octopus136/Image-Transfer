@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Bridge">
+      <UniqueIdentifier>{727b6492-23b1-45c7-94ed-6f5a663924df}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bridgeTypes.h" />
+    <ClInclude Include="Bridge\SingleTransferBridge.h">
+      <Filter>Bridge</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Bridge\SingleTransferBridge.cpp">
+      <Filter>Bridge</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
