@@ -10,8 +10,6 @@
 
 namespace ImgSizer
 {
-    const int MAX_TRIES = 20;
-
     ISExport ConvertResult SingleSizeConvert(
         const ConvertParams* params,
         ProgressCallback progressCallback,
