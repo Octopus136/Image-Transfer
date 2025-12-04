@@ -6,6 +6,4 @@ namespace ImageTransfer {
         const ConvertParams* params,
         ProgressCallback progressCallback,
         void* userData);
-
-    ITExport void GetLastErrorMessage(wchar_t* buffer, int bufferLen);
 };

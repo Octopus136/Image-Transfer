@@ -19,8 +19,6 @@ namespace ImageTransfer
                 long long targetBytes,
                 long long originalBytes,
                 ProgressHandler^ progressCallback);
-
-            static System::String^ GetLastError();
         };
     }
 }

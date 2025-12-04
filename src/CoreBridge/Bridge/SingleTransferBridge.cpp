@@ -39,7 +39,7 @@ namespace ImageTransfer
         {
             if (String::IsNullOrWhiteSpace(inputPath) || String::IsNullOrWhiteSpace(outputPath))
             {
-                throw gcnew ArgumentException("Input and output paths are required.");
+                return TransferResult::ErrParams;
             }
 
             std::string inputNative  = marshal_as<std::string>(inputPath);
@@ -81,15 +81,8 @@ namespace ImageTransfer
                     delete handlerRoot;
                     handlerRoot = nullptr;
                 }
-                return TransferResult::Failed;
+                return TransferResult::ErrUnknown;
             }
-        }
-
-        String^ SingleTransfer::GetLastError()
-        {
-            wchar_t buffer[512] = { 0 };
-            GetLastErrorMessage(buffer, static_cast<int>(std::size(buffer)));
-            return gcnew String(buffer);
         }
     }
 }

@@ -9,14 +9,7 @@
 
 namespace ImageTransfer
 {
-    std::wstring g_lastError;
-
     const int MAX_TRIES = 20;
-
-    static void SetLastError(const wchar_t* msg)
-    {
-        g_lastError = msg ? msg : L"";
-    }
 
     std::string GetExtension(const std::string& path)
     {
@@ -32,8 +25,7 @@ namespace ImageTransfer
     {
         if (!params || params->inputPath.empty() || params->outputPath.empty())
         {
-            SetLastError(L"Invalid parameters");
-            return TransferResult::Failed;
+            return TransferResult::ErrParams;
         }
 
         try
@@ -62,8 +54,7 @@ namespace ImageTransfer
             std::int64_t targetBytes = params->targetBytes;
             std::int64_t originalBytes = params->originalBytes;
 	        if (targetBytes > 10 * originalBytes) {
-                SetLastError(L"Too Large to Convert");
-                return TransferResult::Failed;
+                return TransferResult::ErrSize;
 	        }
 	        std::vector<uchar> encoded_data;
             std::string ext = GetExtension(params->outputPath);
@@ -76,8 +67,7 @@ namespace ImageTransfer
 		        cv::resize(input_img, resize_img, cv::Size(int(1.0 * mid * width), int(1.0 * mid * height)));
 		        bool success = cv::imencode(ext, resize_img, encoded_data);
 		        if (!success) {
-                    SetLastError(L"Encode Failed");
-			        return TransferResult::Failed;
+			        return TransferResult::ErrCodecs;
 		        }
 		        std::int64_t nowBytes = encoded_data.size();
                 progressCallback(transfer_count * 100 / MAX_TRIES, userData);
@@ -94,28 +84,11 @@ namespace ImageTransfer
             // core logic end
 
             reportProgress(100);
-            SetLastError(nullptr);
             return TransferResult::OK;
         }
         catch (...)
         {
-            SetLastError(L"Unknown error in ConvertImage");
-            return TransferResult::Failed;
+            return TransferResult::ErrUnknown;
         }
     }
-
-    ITExport void GetLastErrorMessage(wchar_t* buffer, int bufferLen)
-    {
-        if (!buffer || bufferLen <= 0)
-            return;
-
-        if (g_lastError.empty())
-        {
-            buffer[0] = L'\0';
-            return;
-        }
-
-        wcsncpy_s(buffer, bufferLen, g_lastError.c_str(), _TRUNCATE);
-    }
-
 };

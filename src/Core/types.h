@@ -7,8 +7,10 @@ extern "C" {
 enum class TransferResult
 {
     OK = 0,
-    Failed = 1,
-    Cancelled = 2
+    ErrParams = 1,
+    ErrSize = 2,
+    ErrCodecs = 3,
+    ErrUnknown = 4,
 };
 
 typedef void(__stdcall* ProgressCallback)(int progress, void* userData);

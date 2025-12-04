@@ -9,8 +9,10 @@ namespace ImageTransfer
         public enum class TransferResult
         {
             OK = 0,
-            Failed = 1,
-            Cancelled = 2
+            ErrParams = 1,
+            ErrSize = 2,
+            ErrCodecs = 3,
+            ErrUnknown = 4,
         };
     }
 }

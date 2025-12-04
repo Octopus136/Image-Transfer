@@ -10,6 +10,8 @@ using System.Windows;
 using System.Globalization;
 using System.IO;
 using static ImageTransfer.Wpf.Localization;
+using System.Collections.Generic;
+using static BridgeTransferResultExtensions;
 
 namespace ImageTransfer.Wpf
 {
@@ -246,11 +248,11 @@ namespace ImageTransfer.Wpf
 
             try
             {
-                var (result, errorMessage) = await Task.Run(() =>
+                var result = await Task.Run(() =>
                 {
                     try
                     {
-                        var transferResult = BridgeSingleTransfer.Convert(
+                        return BridgeSingleTransfer.Convert(
                             InputPath,
                             OutputPath,
                             targetBytes,
@@ -259,13 +261,10 @@ namespace ImageTransfer.Wpf
                             {
                                 Progress = progress;
                             }));
-
-                        var lastError = BridgeSingleTransfer.GetLastError();
-                        return (transferResult, lastError);
                     }
                     catch (Exception ex)
                     {
-                        return (BridgeTransferResult.Failed, ex.Message);
+                        return BridgeTransferResult.ErrUnknown;
                     }
                 });
 
@@ -275,9 +274,10 @@ namespace ImageTransfer.Wpf
                 }
                 else
                 {
-                    var message = string.IsNullOrWhiteSpace(errorMessage)
-                        ? GetString("ConversionFailed")
-                        : string.Format(CultureInfo.CurrentCulture, GetString("ConversionFailedWithReasonFormat"), errorMessage);
+                    string messageFormat = GetString("ConversionFailedWithReasonFormat");
+                    string reason = GetString(result.GetResourceKey());
+                    string message = string.Format(messageFormat, reason);
+
                     HandyControl.Controls.MessageBox.Error(message);
                 }
             }

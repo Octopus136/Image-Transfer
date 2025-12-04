@@ -31,6 +31,11 @@
     <sys:String x:Key="AboutMessage">这里什么都没有哦</sys:String>
     <sys:String x:Key="AboutTitle">关于</sys:String>
     <sys:String x:Key="ConversionSuccess">转换成功</sys:String>
-    <sys:String x:Key="ConversionFailed">转换失败</sys:String>
     <sys:String x:Key="ConversionFailedWithReasonFormat">转换失败：{0}</sys:String>
+
+    <!-- reason -->
+    <sys:String x:Key="ReasonSize">目标大小太大，请控制输出大小在原始大小的 10 倍以内</sys:String>
+    <sys:String x:Key="ReasonCodecs">内部编解码错误，请尝试其他图像格式</sys:String>
+    <sys:String x:Key="ReasonParams">输入路径或目标大小有无，请检查传入参数</sys:String>
+    <sys:String x:Key="ReasonUnknown">内部未知错误，请联系开发者</sys:String>
 </ResourceDictionary>
