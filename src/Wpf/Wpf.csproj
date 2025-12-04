@@ -9,7 +9,7 @@
     <BaseOutputPath></BaseOutputPath>
     <Platforms>x64</Platforms>
     <StartupObject>Wpf.App</StartupObject>
-    <AssemblyName>ImageTransfer</AssemblyName>
+    <AssemblyName>ImgSizer</AssemblyName>
     <RootNamespace>Wpf</RootNamespace>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <Authors>Burnside</Authors>

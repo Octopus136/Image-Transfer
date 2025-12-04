@@ -1,4 +1,4 @@
-﻿using BridgeTransferResult = ImageTransfer.Bridge.TransferResult;
+﻿using BridgeTransferResult = ImgSizer.Bridge.TransferResult;
 
 public static class BridgeTransferResultExtensions
 {

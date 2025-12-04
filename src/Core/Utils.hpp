@@ -4,7 +4,7 @@
 #include <algorithm>
 #include "types.h"
 
-namespace ImageTransfer {
+namespace ImgSizer {
     namespace Util {
         template <typename T>
         const T& clamp(const T& v, const T& lo, const T& hi)

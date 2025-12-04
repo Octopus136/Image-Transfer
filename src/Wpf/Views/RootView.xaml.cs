@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ImageTransfer.Wpf.Views
+namespace ImgSizer.Wpf.Views
 {
     public partial class RootView : Window
     {

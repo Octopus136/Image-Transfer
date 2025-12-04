@@ -1,4 +1,4 @@
-﻿namespace ImageTransfer.Wpf
+﻿namespace ImgSizer.Wpf
 {
     public static class Localization
     {

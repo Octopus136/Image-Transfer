@@ -1,19 +1,19 @@
 ﻿using Stylet;
-using ImageTransfer.Bridge;
+using ImgSizer.Bridge;
 using System;
 using System.Threading.Tasks;
-using BridgeSingleTransfer = ImageTransfer.Bridge.SingleTransfer;
-using BridgeTransferResult = ImageTransfer.Bridge.TransferResult;
+using BridgeSingleTransfer = ImgSizer.Bridge.SingleTransfer;
+using BridgeTransferResult = ImgSizer.Bridge.TransferResult;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Windows;
 using System.Globalization;
 using System.IO;
-using static ImageTransfer.Wpf.Localization;
+using static ImgSizer.Wpf.Localization;
 using System.Collections.Generic;
 using static BridgeTransferResultExtensions;
 
-namespace ImageTransfer.Wpf
+namespace ImgSizer.Wpf
 {
     public class SingleTransfer : Screen
     {

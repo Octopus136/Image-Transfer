@@ -1,8 +1,8 @@
 [English README](README.md) | [中文 README](README_zh.md)
 
-# ImageTransfer
+# ImgSizer
 
-✨ ImageTransfer 解决了上传高清照片时的烦恼：很多网站限制图片大小，而现代设备拍摄的照片动辄数十兆，常规压缩软件又难以精准压到指定大小，导致上传屡屡失败。ImageTransfer 允许你设置目标体积，确保图片一次达标，无需反复试错。
+✨ ImgSizer 解决了上传高清照片时的烦恼：很多网站限制图片大小，而现代设备拍摄的照片动辄数十兆，常规压缩软件又难以精准压到指定大小，导致上传屡屡失败。ImgSizer 允许你设置目标体积，确保图片一次达标，无需反复试错。
 
 ## 开发指南
 
@@ -14,13 +14,13 @@
 ### 配置环境
 - 使用子模块拉取代码：`git clone --recurse-submodules <repo-url>`。
 - 运行 `scripts/setup-vcpkg.bat` 即可完成依赖准备（无需自行安装 vcpkg）。首次执行可能较慢，因为 vcpkg 需要构建工具链。
-- 加载 `ImageTransfer.sln` 解决方案，并将 `Wpf` 项目设置为启动项目。
+- 加载 `ImgSizer.sln` 解决方案，并将 `Wpf` 项目设置为启动项目。
 
 ## 使用指南
 
-1. 在 [Releases](https://github.com/Burnside999/ImageTransfer/releases) 页面下载最新版本的 ImageTransfer。
-2. ImageTransfer 的运行需要 .NET 8.0 运行时，请执行 `setup-doenet.bat` 安装。
-3. 运行 `ImageTransfer.exe` 启动应用。
+1. 在 [Releases](https://github.com/Burnside999/ImgSizer/releases) 页面下载最新版本的 ImgSizer。
+2. ImgSizer 的运行需要 .NET 8.0 运行时，请执行 `setup-doenet.bat` 安装。
+3. 运行 `ImgSizer.exe` 启动应用。
 
 ## 未来计划
 

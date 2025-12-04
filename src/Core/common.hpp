@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef _WIN32
-#define ITExport __declspec(dllexport)
+#define ISExport __declspec(dllexport)
 #else
-#define ITExport
+#define ISExport
 #endif

@@ -10,7 +10,7 @@
 using namespace System;
 using namespace msclr::interop;
 
-namespace ImageTransfer
+namespace ImgSizer
 {
     namespace Bridge
     {

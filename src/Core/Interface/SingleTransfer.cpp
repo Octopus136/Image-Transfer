@@ -8,11 +8,11 @@
 #include "opencv2/opencv.hpp"
 #include "Utils.hpp"
 
-namespace ImageTransfer
+namespace ImgSizer
 {
     const int MAX_TRIES = 20;
 
-    ITExport TransferResult ConvertSingleImage(
+    ISExport TransferResult ConvertSingleImage(
         const ConvertParams* params,
         ProgressCallback progressCallback,
         void* userData)

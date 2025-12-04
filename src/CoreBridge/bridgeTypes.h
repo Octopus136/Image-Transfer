@@ -2,7 +2,7 @@
 
 #include <vcclr.h>
 
-namespace ImageTransfer
+namespace ImgSizer
 {
     namespace Bridge
     {
