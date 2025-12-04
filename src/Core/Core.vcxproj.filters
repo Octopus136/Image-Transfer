@@ -16,5 +16,6 @@
     </ClInclude>
     <ClInclude Include="types.h" />
     <ClInclude Include="common.hpp" />
+    <ClInclude Include="Utils.hpp" />
   </ItemGroup>
 </Project>

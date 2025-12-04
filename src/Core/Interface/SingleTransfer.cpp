@@ -6,17 +6,11 @@
 #include <fstream>
 
 #include "opencv2/opencv.hpp"
+#include "Utils.hpp"
 
 namespace ImageTransfer
 {
     const int MAX_TRIES = 20;
-
-    std::string GetExtension(const std::string& path)
-    {
-        size_t pos = path.find_last_of('.');
-        if (pos == std::string::npos) return "";
-        return path.substr(pos);
-    }
 
     ITExport TransferResult ConvertSingleImage(
         const ConvertParams* params,
@@ -31,18 +25,7 @@ namespace ImageTransfer
         try
         {
             int progress = 0;
-            auto reportProgress = [&](int p)
-                {
-                    if (p < 0) p = 0;
-                    if (p > 100) p = 100;
-                    progress = p;
-                    if (progressCallback)
-                    {
-                        progressCallback(progress, userData);
-                    }
-                };
-
-            reportProgress(0);
+            Util::ReportProgress(progressCallback, userData, 0);
 
             // core logic begin
             cv::Mat input_img = cv::imread(params->inputPath, cv::IMREAD_UNCHANGED);
@@ -57,7 +40,7 @@ namespace ImageTransfer
                 return TransferResult::ErrSize;
 	        }
 	        std::vector<uchar> encoded_data;
-            std::string ext = GetExtension(params->outputPath);
+            std::string ext = Util::GetExtension(params->outputPath);
 	        while (l <= r) {
 		        transfer_count++;
 		        if (transfer_count > MAX_TRIES) {
@@ -70,7 +53,7 @@ namespace ImageTransfer
 			        return TransferResult::ErrCodecs;
 		        }
 		        std::int64_t nowBytes = encoded_data.size();
-                progressCallback(transfer_count * 100 / MAX_TRIES, userData);
+                Util::ReportProgress(progressCallback, userData, transfer_count * 100 / MAX_TRIES);
 		        if (1.0 * std::abs(nowBytes - targetBytes) / targetBytes < 0.01) {
 			        break;
 		        }
@@ -83,7 +66,7 @@ namespace ImageTransfer
 		    file.close();
             // core logic end
 
-            reportProgress(100);
+            Util::ReportProgress(progressCallback, userData, 100);
             return TransferResult::OK;
         }
         catch (...)
