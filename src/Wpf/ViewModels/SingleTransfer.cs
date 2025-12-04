@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows;
 using System.Globalization;
 using System.IO;
+using static ImageTransfer.Wpf.Localization;
 
 namespace ImageTransfer.Wpf
 {
@@ -141,13 +142,13 @@ namespace ImageTransfer.Wpf
         {
             if (string.IsNullOrWhiteSpace(_targetSize))
             {
-                TargetSizeError = "请输入目标大小";
+                TargetSizeError = GetString("TargetSizeErrorRequired");
                 return;
             }
 
             if (!_regex.IsMatch(_targetSize))
             {
-                TargetSizeError = "请输入大于 0 的数字";
+                TargetSizeError = GetString("TargetSizeErrorInvalidNumber");
                 return;
             }
 
@@ -185,7 +186,7 @@ namespace ImageTransfer.Wpf
         {
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
-                Filter = "图片文件|*.png;*.jpg;*.jpeg|所有文件|*.*"
+                Filter = GetString("ImageFileFilter")
             };
 
             if (dialog.ShowDialog() == true)
@@ -204,7 +205,7 @@ namespace ImageTransfer.Wpf
         {
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
-                Filter = "图片文件|*.png;*.jpg;*.jpeg|所有文件|*.*",
+                Filter = GetString("ImageFileFilter"),
                 FileName = OutputPath
             };
 
@@ -217,7 +218,7 @@ namespace ImageTransfer.Wpf
         // 关于
         public void About()
         {
-            HandyControl.Controls.MessageBox.Info("这里什么都没有哦", "关于");
+            HandyControl.Controls.MessageBox.Info(GetString("AboutMessage"), GetString("AboutTitle"));
         }
 
         // 开始转换
@@ -227,12 +228,12 @@ namespace ImageTransfer.Wpf
 
             if (string.IsNullOrWhiteSpace(InputPath) || string.IsNullOrWhiteSpace(OutputPath))
             {
-                HandyControl.Controls.MessageBox.Error("未选择输入与输出路径");
+                HandyControl.Controls.MessageBox.Error(GetString("InputOutputMissing"));
                 return;
             }
             if (!double.TryParse(TargetSize, out var target) || target <= 0)
             {
-                HandyControl.Controls.MessageBox.Error("目标大小不是合法数字");
+                HandyControl.Controls.MessageBox.Error(GetString("InvalidTargetSize"));
                 return;
             }
 
@@ -270,14 +271,14 @@ namespace ImageTransfer.Wpf
 
                 if (result == BridgeTransferResult.OK)
                 {
-                    HandyControl.Controls.MessageBox.Success("转换成功");
+                    HandyControl.Controls.MessageBox.Success(GetString("ConversionSuccess"));
                 }
                 else
                 {
                     var message = string.IsNullOrWhiteSpace(errorMessage)
-                        ? "转换失败"
-                        : $"转换失败：{errorMessage}";
-                    HandyControl.Controls.MessageBox.Error(errorMessage);
+                        ? GetString("ConversionFailed")
+                        : string.Format(CultureInfo.CurrentCulture, GetString("ConversionFailedWithReasonFormat"), errorMessage);
+                    HandyControl.Controls.MessageBox.Error(message);
                 }
             }
             finally

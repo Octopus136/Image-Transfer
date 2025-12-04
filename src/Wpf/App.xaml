@@ -13,6 +13,8 @@
                 <!-- MyStyles -->
                 <ResourceDictionary Source="Styles/Colors.xaml" />
                 <ResourceDictionary Source="Styles/Theme.xaml" />
+                <!-- Localizations -->
+                <ResourceDictionary Source="Localizations/zh-cn.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -4,7 +4,7 @@
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:vm="clr-namespace:ImageTransfer.Wpf"
         xmlns:views="clr-namespace:ImageTransfer.Wpf.Views"
-        Title="图片大小转换工具"
+        Title="{DynamicResource RootViewTitle}"
         Width="640"
         MinWidth="640"
         SizeToContent="Height"
@@ -13,15 +13,59 @@
     <Window.DataContext>
         <vm:SingleTransfer />
     </Window.DataContext>
+
+    <Window.Resources>
+        <Style TargetType="Label"
+                   BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="0" />
+        </Style>
+
+        <Style TargetType="TextBox"
+                    BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Margin" Value="0,4,0,4" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="Button"
+                   BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Margin" Value="8,4,0,4" />
+            <Setter Property="MinWidth" Value="80" />
+            <Setter Property="Padding" Value="12,4" />
+        </Style>
+
+        <Style TargetType="ComboBox"
+                              BasedOn="{StaticResource {x:Type ComboBox}}">
+            <Setter Property="Margin" Value="0,4,0,4" />
+            <Setter Property="MinWidth" Value="70" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+    </Window.Resources>
+
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <views:SingleTransferView Grid.Row="0" />
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,0,0">
+            <Label Content="{DynamicResource LanguageLabel}" BorderThickness="0" Margin="0,0,8,0"/>
+            <ComboBox Width="160"
+                      SelectedIndex="0">
+                <ComboBoxItem Content="中文（简体）" />
+            </ComboBox>
+        </StackPanel>
 
-        <ProgressBar Grid.Row="1"
+        <views:SingleTransferView Grid.Row="1" />
+
+        <ProgressBar Grid.Row="2"
                      Height="20"
                      Margin="0,12,0,0"
                      Minimum="0"
