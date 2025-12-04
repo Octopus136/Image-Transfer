@@ -11,7 +11,7 @@
         ResizeMode="CanMinimize"
         Background="{DynamicResource RegionBrush}">
     <Window.DataContext>
-        <vm:SingleTransfer />
+        <vm:SingleConvert />
     </Window.DataContext>
 
     <Window.Resources>
@@ -63,7 +63,7 @@
             </ComboBox>
         </StackPanel>
 
-        <views:SingleTransferView Grid.Row="1" />
+        <views:SingleConvertView Grid.Row="1" />
 
         <ProgressBar Grid.Row="2"
                      Height="20"

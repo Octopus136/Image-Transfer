@@ -6,7 +6,7 @@ namespace ImgSizer
 {
     namespace Bridge
     {
-        public enum class TransferResult
+        public enum class ConvertResult
         {
             OK = 0,
             ErrParams = 1,

@@ -1,14 +1,14 @@
-﻿using BridgeTransferResult = ImgSizer.Bridge.TransferResult;
+﻿using BridgeConvertResult = ImgSizer.Bridge.ConvertResult;
 
-public static class BridgeTransferResultExtensions
+public static class BridgeConvertResultExtensions
 {
-    public static string GetResourceKey(this BridgeTransferResult result) =>
+    public static string GetResourceKey(this BridgeConvertResult result) =>
         result switch
         {
-            BridgeTransferResult.ErrParams => "ReasonParams",
-            BridgeTransferResult.ErrSize => "ReasonSize",
-            BridgeTransferResult.ErrCodecs => "ReasonCodecs",
-            BridgeTransferResult.ErrUnknown => "ReasonUnknown",
+            BridgeConvertResult.ErrParams => "ReasonParams",
+            BridgeConvertResult.ErrSize => "ReasonSize",
+            BridgeConvertResult.ErrCodecs => "ReasonCodecs",
+            BridgeConvertResult.ErrUnknown => "ReasonUnknown",
             _ => "ReasonUnknown"
         };
 }

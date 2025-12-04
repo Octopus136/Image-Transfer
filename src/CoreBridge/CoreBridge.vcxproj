@@ -125,11 +125,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Bridge\SingleTransferBridge.h" />
+    <ClInclude Include="Bridge\SingleConvertBridge.h" />
     <ClInclude Include="bridgeTypes.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bridge\SingleTransferBridge.cpp" />
+    <ClCompile Include="Bridge\SingleConvertBridge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.vcxproj">

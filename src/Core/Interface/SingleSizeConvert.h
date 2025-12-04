@@ -2,7 +2,7 @@
 #include "types.h"
 
 namespace ImgSizer {
-    ISExport TransferResult ConvertSingleImage(
+    ISExport ConvertResult SingleSizeConvert(
         const ConvertParams* params,
         ProgressCallback progressCallback,
         void* userData);

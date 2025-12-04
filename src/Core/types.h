@@ -1,10 +1,10 @@
 #pragma once
-#include "common.hpp"
+#include "common.h"
 #include <string>
 
 extern "C" {
 
-enum class TransferResult
+enum class ConvertResult
 {
     OK = 0,
     ErrParams = 1,
@@ -19,8 +19,16 @@ struct ConvertParams
 {
     std::string inputPath;
     std::string outputPath;
-    std::int64_t targetBytes;
-    std::int64_t originalBytes;
+    std::size_t targetBytes;
+    std::size_t originalBytes;
+};
+
+struct EncodeParams {
+    int jpgQuality;
+    int pngCompression;
+    int width;
+    int height;
+    std::string extension;
 };
 
 }

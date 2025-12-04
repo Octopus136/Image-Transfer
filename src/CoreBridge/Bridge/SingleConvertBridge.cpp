@@ -1,11 +1,11 @@
-#include "SingleTransferBridge.h"
+#include "SingleConvertBridge.h"
 
 #include <msclr/marshal_cppstd.h>
 #include <array>
 #include <string>
 
 #include "types.h"
-#include "Interface/SingleTransfer.h"
+#include "Interface/SingleSizeConvert.h"
 
 using namespace System;
 using namespace msclr::interop;
@@ -30,7 +30,7 @@ namespace ImgSizer
             }
         }
 
-        TransferResult SingleTransfer::Convert(
+        ConvertResult SingleConvert::Convert(
             String^ inputPath,
             String^ outputPath,
             long long targetBytes,
@@ -39,7 +39,7 @@ namespace ImgSizer
         {
             if (String::IsNullOrWhiteSpace(inputPath) || String::IsNullOrWhiteSpace(outputPath))
             {
-                return TransferResult::ErrParams;
+                return ConvertResult::ErrParams;
             }
 
             std::string inputNative  = marshal_as<std::string>(inputPath);
@@ -64,7 +64,7 @@ namespace ImgSizer
 
             try
             {
-                const auto result = ConvertSingleImage(&params, nativeCallback, userData);
+                const auto result = SingleSizeConvert(&params, nativeCallback, userData);
 
                 if (handlerRoot)
                 {
@@ -72,7 +72,7 @@ namespace ImgSizer
                     handlerRoot = nullptr;
                 }
 
-                return static_cast<TransferResult>(static_cast<int>(result));
+                return static_cast<ConvertResult>(static_cast<int>(result));
             }
             catch (...)
             {
@@ -81,7 +81,7 @@ namespace ImgSizer
                     delete handlerRoot;
                     handlerRoot = nullptr;
                 }
-                return TransferResult::ErrUnknown;
+                return ConvertResult::ErrUnknown;
             }
         }
     }

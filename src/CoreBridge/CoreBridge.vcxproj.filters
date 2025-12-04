@@ -7,12 +7,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bridgeTypes.h" />
-    <ClInclude Include="Bridge\SingleTransferBridge.h">
+    <ClInclude Include="Bridge\SingleConvertBridge.h">
       <Filter>Bridge</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bridge\SingleTransferBridge.cpp">
+    <ClCompile Include="Bridge\SingleConvertBridge.cpp">
       <Filter>Bridge</Filter>
     </ClCompile>
   </ItemGroup>

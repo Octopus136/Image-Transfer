@@ -5,9 +5,9 @@ using System.Windows.Input;
 
 namespace ImgSizer.Wpf.Views
 {
-    public partial class SingleTransferView
+    public partial class SingleConvertView
     {
-        public SingleTransferView()
+        public SingleConvertView()
         {
             InitializeComponent();
         }

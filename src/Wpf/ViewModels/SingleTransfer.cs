@@ -2,8 +2,8 @@
 using ImgSizer.Bridge;
 using System;
 using System.Threading.Tasks;
-using BridgeSingleTransfer = ImgSizer.Bridge.SingleTransfer;
-using BridgeTransferResult = ImgSizer.Bridge.TransferResult;
+using BridgeSingleConvert = ImgSizer.Bridge.SingleConvert;
+using BridgeConvertResult = ImgSizer.Bridge.ConvertResult;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Windows;
@@ -11,11 +11,11 @@ using System.Globalization;
 using System.IO;
 using static ImgSizer.Wpf.Localization;
 using System.Collections.Generic;
-using static BridgeTransferResultExtensions;
+using static BridgeConvertResultExtensions;
 
 namespace ImgSizer.Wpf
 {
-    public class SingleTransfer : Screen
+    public class SingleConvert : Screen
     {
 
         private long _sourceBytes;
@@ -252,7 +252,7 @@ namespace ImgSizer.Wpf
                 {
                     try
                     {
-                        return BridgeSingleTransfer.Convert(
+                        return BridgeSingleConvert.Convert(
                             InputPath,
                             OutputPath,
                             targetBytes,
@@ -264,11 +264,11 @@ namespace ImgSizer.Wpf
                     }
                     catch (Exception ex)
                     {
-                        return BridgeTransferResult.ErrUnknown;
+                        return BridgeConvertResult.ErrUnknown;
                     }
                 });
 
-                if (result == BridgeTransferResult.OK)
+                if (result == BridgeConvertResult.OK)
                 {
                     HandyControl.Controls.MessageBox.Success(GetString("ConversionSuccess"));
                 }

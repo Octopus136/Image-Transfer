@@ -1,8 +1,4 @@
-#pragma once
-
-#include <string>
-#include <algorithm>
-#include "types.h"
+#include "utils.h"
 
 namespace ImgSizer {
     namespace Util {
@@ -19,7 +15,7 @@ namespace ImgSizer {
             return path.substr(pos);
         }
 
-        void ReportProgress(const ProgressCallback& callback, void* userData, int progress)
+        void BridgeReportProgress(const ProgressCallback& callback, void* userData, int progress)
         {
             if (!callback) return;
             progress = clamp(progress, 0, 100);
