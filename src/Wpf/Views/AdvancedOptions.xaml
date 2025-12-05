@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="ImgSizer.Wpf.Views.AdvancedOptionsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:s="https://github.com/canton7/Stylet"
+             xmlns:controls="https://handyorg.github.io/handycontrol"
+             s:View.ActionTarget="{Binding}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- 折叠头 -->
+            <RowDefinition Height="Auto" />
+            <!-- 内容 -->
+        </Grid.RowDefinitions>
+
+        <!-- 头部：Divider + [ Button(小三角) + Label ] -->
+        <hc:Divider Grid.Row="0"
+                HorizontalContentAlignment="Left">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <!-- 小三角按钮 -->
+                    <ColumnDefinition Width="Auto" />
+                    <!-- 文本 -->
+                </Grid.ColumnDefinitions>
+
+                <!-- 小三角按钮 -->
+                <Button Grid.Column="0"
+                    Command="{s:Action ToggleAdvancedOptions}">
+                    <Button.Style>
+                        <Style TargetType="Button"
+                           BasedOn="{StaticResource ButtonIcon}">
+                            <!-- 默认向下 -->
+                            <Setter Property="controls:IconElement.Geometry"
+                                Value="{StaticResource DownGeometry}" />
+                            <Style.Triggers>
+                                <!-- 展开时换成 UpGeometry -->
+                                <DataTrigger Binding="{Binding IsAdvancedOptionsExpanded}" Value="True">
+                                    <Setter Property="controls:IconElement.Geometry"
+                                        Value="{StaticResource UpGeometry}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <!-- 标题文本 -->
+                <Label Grid.Column="1"
+                   Content="高级选项（实验性）"
+                   VerticalAlignment="Center"
+                   Margin="4,0,0,0" />
+            </Grid>
+        </hc:Divider>
+
+        <!-- 折叠内容区域 -->
+        <Grid Grid.Row="1"
+          Margin="0,8,0,0"
+          Visibility="{Binding IsAdvancedOptionsExpanded,
+                               Converter={StaticResource BooleanToVisibilityConverter}}">
+            <!-- 在这里放你的高级选项控件 -->
+            <!-- ... -->
+        </Grid>
+    </Grid>
+
+</UserControl>

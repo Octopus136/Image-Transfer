@@ -10,9 +10,6 @@
         SizeToContent="Height"
         ResizeMode="CanMinimize"
         Background="{DynamicResource RegionBrush}">
-    <Window.DataContext>
-        <vm:SingleConvert />
-    </Window.DataContext>
 
     <Window.Resources>
         <Style TargetType="Label"
@@ -50,6 +47,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0"
@@ -63,9 +61,10 @@
             </ComboBox>
         </StackPanel>
 
-        <views:SingleConvertView Grid.Row="1" />
-
-        <ProgressBar Grid.Row="2"
+        <ContentControl s:View.Model="{Binding ActiveItem}" />
+        <!-- 这里插入 AdvancedOptions -->
+        
+        <ProgressBar Grid.Row="3"
                      Height="20"
                      Margin="0,12,0,0"
                      Minimum="0"
