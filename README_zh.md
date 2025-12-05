@@ -19,7 +19,7 @@
 ## 使用指南
 
 1. 在 [Releases](https://github.com/Burnside999/ImgSizer/releases) 页面下载最新版本的 ImgSizer。
-2. ImgSizer 的运行需要 .NET 8.0 运行时，请执行 `setup-doenet.bat` 安装。
+2. ImgSizer 的运行需要 .NET 8.0 运行时，请执行 `setup-dotnet.bat` 安装。
 3. 运行 `ImgSizer.exe` 启动应用。
 
 ## 未来计划

@@ -19,7 +19,7 @@
 ## Usage
 
 1. Download the latest version of ImgSizer from the [Releases](https://github.com/Burnside999/ImgSizer/releases) page.
-2. ImgSizer requires the .NET 8.0 runtime. Run `setup-doenet.bat` to install it.
+2. ImgSizer requires the .NET 8.0 runtime. Run `setup-dotnet.bat` to install it.
 3. Launch `ImgSizer.exe` to start the application.
 
 ## Roadmap
