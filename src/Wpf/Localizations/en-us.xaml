@@ -1,0 +1,67 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!-- Title -->
+    <sys:String x:Key="RootViewTitle">Image Size Converter</sys:String>
+
+    <!-- UI -->
+    <sys:String x:Key="LanguageLabel">Language</sys:String>
+    <sys:String x:Key="InputFileLabel">Input File</sys:String>
+    <sys:String x:Key="OutputFileLabel">Output File</sys:String>
+    <sys:String x:Key="BrowseButton">Browse...</sys:String>
+    <sys:String x:Key="TargetSizeLabel">Target Size</sys:String>
+    <sys:String x:Key="AboutButton">About</sys:String>
+    <sys:String x:Key="StartConvertButton">Start Conversion</sys:String>
+
+    <!-- content -->
+    <sys:String x:Key="AdvancedOptionsContent">Advanced Options (Experimental)</sys:String>
+    <sys:String x:Key="UseExperimentalStrategyContent">Use Experimental Strategy</sys:String>
+    <sys:String x:Key="UseCUDAContent">Use CUDA Acceleration</sys:String>
+    <sys:String x:Key="UseCustomJpegQualityContent">Use Custom JPEG Quality</sys:String>
+    <sys:String x:Key="UseCustomPngCompressionContent">Use Custom PNG Compression Level</sys:String>
+
+    <!-- tooltip -->
+    <sys:String x:Key="TargetSizeTooltip" xml:space="preserve">Please enter a positive number
+1 MB = 1024 KB
+Conversion is considered successful if the relative error between the actual output size and the target size is less than 1%</sys:String>
+
+    <sys:String x:Key="UseExperimentalStrategyTooltip" xml:space="preserve">Allows the use of an experimental strategy, which will likely improve performance but may occasionally have the opposite effect
+This feature is still under development and is currently disabled</sys:String>
+
+    <sys:String x:Key="UseCUDATooltip" xml:space="preserve">Allows the use of CUDA acceleration; a device with CUDA support is required
+This feature is still under development and is currently disabled</sys:String>
+
+    <sys:String x:Key="UseCustomJpegQualityTooltip" xml:space="preserve">Allows setting a custom JPEG quality parameter; this value is ignored when processing PNG images
+Allowed range: 1 (lowest) – 100 (highest)
+Very low quality may cause noticeable blocky compression artifacts
+Default value: 95</sys:String>
+
+    <sys:String x:Key="UseCustomPngCompressionTooltip" xml:space="preserve">Allows setting a custom PNG compression level; this value is ignored when processing JPEG images
+Allowed range: 0 (fastest, largest) – 9 (slowest, smallest)
+PNG compression level does not affect image quality. Higher levels may significantly increase processing time but can reduce file size
+Default value: 1</sys:String>
+
+
+    <!-- Models -->
+
+    <!-- maybe unused -->
+    <sys:String x:Key="TargetSizeErrorRequired">Please enter a target size</sys:String>
+    <sys:String x:Key="TargetSizeErrorInvalidNumber">Please enter a number greater than 0, such as 1.5</sys:String>
+    <sys:String x:Key="InputOutputMissing">Input or output path is missing</sys:String>
+    <sys:String x:Key="InvalidTargetSize">Target size is not a valid number</sys:String>
+
+    <!-- filter -->
+    <sys:String x:Key="ImageFileFilter">Image Files|*.png;*.jpg;*.jpeg|All Files|*.*</sys:String>
+
+    <!-- messagebox -->
+    <sys:String x:Key="AboutMessage">There is nothing here</sys:String>
+    <sys:String x:Key="AboutTitle">About</sys:String>
+    <sys:String x:Key="ConversionSuccess">Conversion Successful</sys:String>
+    <sys:String x:Key="ConversionFailedWithReasonFormat">Conversion Failed: {0}</sys:String>
+
+    <!-- reason -->
+    <sys:String x:Key="ReasonSize">Target size is too large; please keep the output size within 10× of the original file</sys:String>
+    <sys:String x:Key="ReasonCodecs">Internal codec error; please try another image format</sys:String>
+    <sys:String x:Key="ReasonParams">Input path or target size is invalid; please check the parameters</sys:String>
+    <sys:String x:Key="ReasonUnknown">An unknown internal error occurred; please contact the developer</sys:String>
+</ResourceDictionary>

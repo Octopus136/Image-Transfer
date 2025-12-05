@@ -56,9 +56,9 @@
                     Margin="0,0,0,0">
             <Label Content="{DynamicResource LanguageLabel}" BorderThickness="0" Margin="0,0,8,0"/>
             <ComboBox Width="160"
-                      SelectedIndex="0">
-                <ComboBoxItem Content="中文（简体）" />
-            </ComboBox>
+                      ItemsSource="{Binding Languages}"
+                      SelectedItem="{Binding SelectedLanguage}"
+                      DisplayMemberPath="DisplayName" />
         </StackPanel>
 
         <ContentControl Grid.Row="1" s:View.Model="{Binding ActiveItem}" />
