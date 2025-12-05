@@ -40,5 +40,18 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!-- ToggleButton -->
+    <Style TargetType="ToggleButton" BasedOn="{StaticResource ToggleButtonCustom}">
+        <Setter Property="Opacity" Value="1" />
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 </ResourceDictionary>

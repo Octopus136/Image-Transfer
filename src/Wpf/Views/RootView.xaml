@@ -72,12 +72,13 @@
             <ToggleButton x:Name="AdvancedHeader"
                   Foreground="{DynamicResource PrimaryTextBrush}"
                   Background="{DynamicResource RegionBrush}"
+                  FocusVisualStyle="{x:Null}"
                   BorderThickness="0"
-                  Padding="0"
                   HorizontalAlignment="Left"
                   Margin="8,0,0,0"
                   Grid.Column="0"
                   IsChecked="{Binding AdvancedOptions.IsAdvancedOptionsExpanded, Mode=TwoWay}">
+
                 <StackPanel Orientation="Horizontal">
                     <Path x:Name="ArrowPath"
                   Width="10"
