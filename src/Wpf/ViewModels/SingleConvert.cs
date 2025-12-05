@@ -15,7 +15,7 @@ using static BridgeConvertResultExtensions;
 
 namespace ImgSizer.Wpf
 {
-    public class SingleConvert : Screen
+    public class SingleConvertViewModel : Screen
     {
 
         private long _sourceBytes;

@@ -1,8 +1,6 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
 
-namespace Wpf
+namespace ImgSizer.Wpf
 {
     public partial class App : Application
     {

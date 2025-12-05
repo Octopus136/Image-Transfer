@@ -8,9 +8,9 @@
     <UseWPF>true</UseWPF>
     <BaseOutputPath></BaseOutputPath>
     <Platforms>x64</Platforms>
-    <StartupObject>Wpf.App</StartupObject>
+    <StartupObject>ImgSizer.Wpf.App</StartupObject>
     <AssemblyName>ImgSizer</AssemblyName>
-    <RootNamespace>Wpf</RootNamespace>
+    <RootNamespace>ImgSizer.Wpf</RootNamespace>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <Authors>Burnside</Authors>
     <Company>Burnside</Company>

@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace Wpf.Styles.Controls;
+namespace ImgSizer.Wpf.Styles.Controls;
 
 public partial class TooltipBlock : UserControl
 {

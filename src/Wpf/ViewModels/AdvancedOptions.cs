@@ -2,7 +2,7 @@
 
 namespace ImgSizer.Wpf
 {
-    public class AdvancedOptions : PropertyChangedBase
+    public class AdvancedOptionsViewModel : PropertyChangedBase
     {
         // 是否展开高级选项
         private bool _isExpanded;

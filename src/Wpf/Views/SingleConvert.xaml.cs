@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace ImgSizer.Wpf.Views
+namespace ImgSizer.Wpf
 {
     public partial class SingleConvertView
     {
