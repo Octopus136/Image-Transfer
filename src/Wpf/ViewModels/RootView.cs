@@ -32,6 +32,13 @@ namespace ImgSizer.Wpf
 
         public AdvancedOptionsViewModel AdvancedOptions { get; }
 
+        private int _progress;
+        public int Progress
+        {
+            get => _progress;
+            set => SetAndNotify(ref _progress, value);
+        }
+
         public RootViewModel(
             SingleConvertViewModel singleConvert,
             AdvancedOptionsViewModel advancedOptions)
@@ -44,7 +51,23 @@ namespace ImgSizer.Wpf
 
             // 默认显示单图
             ActiveItem = SingleConvert;
+            BindProgress(SingleConvert);
+
             SelectedLanguage = Languages[0]; // 默认中文
+        }
+
+        private void BindProgress(Screen screen)
+        {
+            if (screen is IProgressSource progressSource)
+            {
+                progressSource.PropertyChanged += (s, e) =>
+                {
+                    if (e.PropertyName == nameof(IProgressSource.Progress))
+                    {
+                        Progress = progressSource.Progress;
+                    }
+                };
+            }
         }
 
         public void ShowSingle()

@@ -16,7 +16,7 @@ using static BridgeConvertResultExtensions;
 
 namespace ImgSizer.Wpf
 {
-    public class SingleConvertViewModel : Screen
+    public class SingleConvertViewModel : Screen, IProgressSource
     {
         public AdvancedOptionsViewModel AdvancedOptions { get; }
         public SingleConvertViewModel(AdvancedOptionsViewModel advancedOptions)

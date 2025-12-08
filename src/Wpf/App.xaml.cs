@@ -1,9 +1,14 @@
 ﻿using System.Linq;
 using System;
 using System.Windows;
+using System.ComponentModel;
 
 namespace ImgSizer.Wpf
 {
+    public interface IProgressSource : INotifyPropertyChanged
+    {
+        int Progress { get; }
+    }
     public class LanguageItem
     {
         public string DisplayName { get; set; } = "";
