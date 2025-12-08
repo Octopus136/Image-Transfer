@@ -19,14 +19,33 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Interface\SingleTransfer.cpp" />
+    <ClCompile Include="Codecs\DefaultCodecs.cpp" />
+    <ClCompile Include="Interface\SingleSizeConvert.cpp" />
+    <ClCompile Include="Strategy\BinarySearchResolutionStrategy.cpp" />
+    <ClCompile Include="Task\ProgressControl\DefaultProgressControl.cpp" />
+    <ClCompile Include="Task\ProgressControl\ProgressContext.cpp" />
+    <ClCompile Include="Task\Task.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common.hpp">
-      <FileType>CppCode</FileType>
+    <ClInclude Include="Codecs\BasicCodecs.h" />
+    <ClInclude Include="Codecs\Codecs.h" />
+    <ClInclude Include="Codecs\DefaultCodecs.h" />
+    <ClInclude Include="common.h">
+      <FileType>CppHeader</FileType>
     </ClInclude>
-    <ClInclude Include="Interface\SingleTransfer.h" />
+    <ClInclude Include="Interface\SingleSizeConvert.h" />
+    <ClInclude Include="Strategy\BasicStrategy.h" />
+    <ClInclude Include="Strategy\BinarySearchResolutionStrategy.h" />
+    <ClInclude Include="Strategy\Strategy.h" />
+    <ClInclude Include="Task\ProgressControl\DefaultProgressControl.h" />
+    <ClInclude Include="Task\ProgressControl\BasicProgressControl.h" />
+    <ClInclude Include="Task\ProgressControl\ProgressContext.h" />
+    <ClInclude Include="Task\Task.h" />
     <ClInclude Include="types.h" />
+    <ClInclude Include="utils.h">
+      <FileType>CppHeader</FileType>
+    </ClInclude>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -155,6 +174,7 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ProjectDir)</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

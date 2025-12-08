@@ -2,15 +2,24 @@
 
 #include <vcclr.h>
 
-namespace ImageTransfer
+namespace ImgSizer
 {
     namespace Bridge
     {
-        public enum class TransferResult
+        public enum class ConvertResult
         {
             OK = 0,
-            Failed = 1,
-            Cancelled = 2
+            ErrParams = 1,
+            ErrSize = 2,
+            ErrCodecs = 3,
+            ErrUnknown = 4,
+        };
+
+        public value struct AdvancedOptions {
+            bool useExperimentalStrategy;
+            bool useCUDA;
+            int jpegQuality;
+            int pngCompression;
         };
     }
 }

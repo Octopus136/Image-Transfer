@@ -4,23 +4,22 @@
 
 #include "bridgeTypes.h"
 
-namespace ImageTransfer
+namespace ImgSizer
 {
     namespace Bridge
     {
         public delegate void ProgressHandler(int progress);
 
-        public ref class SingleTransfer abstract sealed
+        public ref class SingleConvert abstract sealed
         {
         public:
-            static TransferResult Convert(
+            static ConvertResult Convert(
                 System::String^ inputPath,
                 System::String^ outputPath,
                 long long targetBytes,
                 long long originalBytes,
+                AdvancedOptions advancedOptions,
                 ProgressHandler^ progressCallback);
-
-            static System::String^ GetLastError();
         };
     }
 }

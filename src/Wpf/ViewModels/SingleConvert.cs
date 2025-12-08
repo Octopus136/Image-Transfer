@@ -1,19 +1,28 @@
 ﻿using Stylet;
-using ImageTransfer.Bridge;
+using ImgSizer.Bridge;
 using System;
 using System.Threading.Tasks;
-using BridgeSingleTransfer = ImageTransfer.Bridge.SingleTransfer;
-using BridgeTransferResult = ImageTransfer.Bridge.TransferResult;
+using BridgeSingleConvert = ImgSizer.Bridge.SingleConvert;
+using BridgeConvertResult = ImgSizer.Bridge.ConvertResult;
+using BridgeAdvancedOptions = ImgSizer.Bridge.AdvancedOptions;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Windows;
 using System.Globalization;
 using System.IO;
+using static ImgSizer.Wpf.Localization;
+using System.Collections.Generic;
+using static BridgeConvertResultExtensions;
 
-namespace ImageTransfer.Wpf
+namespace ImgSizer.Wpf
 {
-    public class SingleTransfer : Screen
+    public class SingleConvertViewModel : Screen, IProgressSource
     {
+        public AdvancedOptionsViewModel AdvancedOptions { get; }
+        public SingleConvertViewModel(AdvancedOptionsViewModel advancedOptions)
+        {
+            AdvancedOptions = advancedOptions;
+        }
 
         private long _sourceBytes;
         public long SourceBytes
@@ -141,13 +150,13 @@ namespace ImageTransfer.Wpf
         {
             if (string.IsNullOrWhiteSpace(_targetSize))
             {
-                TargetSizeError = "请输入目标大小";
+                TargetSizeError = GetString("TargetSizeErrorRequired");
                 return;
             }
 
             if (!_regex.IsMatch(_targetSize))
             {
-                TargetSizeError = "请输入大于 0 的数字";
+                TargetSizeError = GetString("TargetSizeErrorInvalidNumber");
                 return;
             }
 
@@ -185,7 +194,7 @@ namespace ImageTransfer.Wpf
         {
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
-                Filter = "图片文件|*.png;*.jpg;*.jpeg|所有文件|*.*"
+                Filter = GetString("ImageFileFilter")
             };
 
             if (dialog.ShowDialog() == true)
@@ -204,7 +213,7 @@ namespace ImageTransfer.Wpf
         {
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
-                Filter = "图片文件|*.png;*.jpg;*.jpeg|所有文件|*.*",
+                Filter = GetString("ImageFileFilter"),
                 FileName = OutputPath
             };
 
@@ -217,7 +226,7 @@ namespace ImageTransfer.Wpf
         // 关于
         public void About()
         {
-            HandyControl.Controls.MessageBox.Info("这里什么都没有哦", "关于");
+            HandyControl.Controls.MessageBox.Info(GetString("AboutMessage"), GetString("AboutTitle"));
         }
 
         // 开始转换
@@ -227,12 +236,12 @@ namespace ImageTransfer.Wpf
 
             if (string.IsNullOrWhiteSpace(InputPath) || string.IsNullOrWhiteSpace(OutputPath))
             {
-                HandyControl.Controls.MessageBox.Error("未选择输入与输出路径");
+                HandyControl.Controls.MessageBox.Error(GetString("InputOutputMissing"));
                 return;
             }
             if (!double.TryParse(TargetSize, out var target) || target <= 0)
             {
-                HandyControl.Controls.MessageBox.Error("目标大小不是合法数字");
+                HandyControl.Controls.MessageBox.Error(GetString("InvalidTargetSize"));
                 return;
             }
 
@@ -245,39 +254,40 @@ namespace ImageTransfer.Wpf
 
             try
             {
-                var (result, errorMessage) = await Task.Run(() =>
+                var result = await Task.Run(() =>
                 {
                     try
                     {
-                        var transferResult = BridgeSingleTransfer.Convert(
+                        var advancedOptions = BuildAdvancedOptions();
+
+                        return BridgeSingleConvert.Convert(
                             InputPath,
                             OutputPath,
                             targetBytes,
                             SourceBytes,
+                            advancedOptions,
                             progress => System.Windows.Application.Current.Dispatcher.Invoke(() =>
                             {
                                 Progress = progress;
                             }));
-
-                        var lastError = BridgeSingleTransfer.GetLastError();
-                        return (transferResult, lastError);
                     }
                     catch (Exception ex)
                     {
-                        return (BridgeTransferResult.Failed, ex.Message);
+                        return BridgeConvertResult.ErrUnknown;
                     }
                 });
 
-                if (result == BridgeTransferResult.OK)
+                if (result == BridgeConvertResult.OK)
                 {
-                    HandyControl.Controls.MessageBox.Success("转换成功");
+                    HandyControl.Controls.MessageBox.Success(GetString("ConversionSuccess"));
                 }
                 else
                 {
-                    var message = string.IsNullOrWhiteSpace(errorMessage)
-                        ? "转换失败"
-                        : $"转换失败：{errorMessage}";
-                    HandyControl.Controls.MessageBox.Error(errorMessage);
+                    string messageFormat = GetString("ConversionFailedWithReasonFormat");
+                    string reason = GetString(result.GetResourceKey());
+                    string message = string.Format(messageFormat, reason);
+
+                    HandyControl.Controls.MessageBox.Error(message);
                 }
             }
             finally
@@ -291,5 +301,32 @@ namespace ImageTransfer.Wpf
                                   && !string.IsNullOrWhiteSpace(OutputPath)
                                   && !string.IsNullOrWhiteSpace(TargetSize)
                                   && IsTargetSizeValid;
+
+        private BridgeAdvancedOptions BuildAdvancedOptions()
+        {
+            var options = new BridgeAdvancedOptions();
+
+            options.useExperimentalStrategy = false; // AdvancedOptions.UseExperimentalStrategy;
+            options.useCUDA = false;                // AdvancedOptions.UseCUDA;
+
+            // JPEG 质量
+            int jpegQuality = AdvancedOptions.UseCustomJpegQuality
+                ? AdvancedOptions.CustomJpegQuality
+                : 95;
+
+            // PNG 压缩
+            int pngCompression = AdvancedOptions.UseCustomPngCompression
+                ? AdvancedOptions.CustomPngCompression
+                : 1;
+
+            jpegQuality = jpegQuality < 0 ? 0 : (jpegQuality > 100 ? 100 : jpegQuality);
+            pngCompression = pngCompression < 0 ? 0 : (pngCompression > 9 ? 9 : pngCompression);
+
+            options.jpegQuality = jpegQuality;
+            options.pngCompression = pngCompression;
+
+            return options;
+        }
+
     }
 }

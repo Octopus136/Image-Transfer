@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="ImgSizer.Wpf.AdvancedOptionsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:s="https://github.com/canton7/Stylet"
+             xmlns:controls="https://handyorg.github.io/handycontrol"
+             xmlns:tips="clr-namespace:ImgSizer.Wpf.Styles.Controls"
+             s:View.ActionTarget="{Binding}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,4,0,10">
+            <CheckBox Content="{DynamicResource UseExperimentalStrategyContent}" IsEnabled="False"/>
+            <tips:TooltipBlock TooltipText="{DynamicResource UseExperimentalStrategyTooltip}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,10">
+            <CheckBox Content="{DynamicResource UseCUDAContent}" IsEnabled="False"/>
+            <tips:TooltipBlock TooltipText="{DynamicResource UseCUDATooltip}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,4,0,4">
+            <CheckBox x:Name="UseCustomJpegQualityCheckBox"
+                      Content="{DynamicResource UseCustomJpegQualityContent}"
+                      IsChecked="{Binding UseCustomJpegQuality}" />
+            <TextBox Width="60"
+                     Margin="8,0,0,0"
+                     HorizontalContentAlignment="Left"
+                     Text="{Binding CustomJpegQuality, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding IsChecked, ElementName=UseCustomJpegQualityCheckBox}" />
+            <tips:TooltipBlock TooltipText="{DynamicResource UseCustomJpegQualityTooltip}"/>
+        </StackPanel>
+            
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,4,0,4">
+            <CheckBox x:Name="UseCustomPngCompressionCheckBox"
+              Content="{DynamicResource UseCustomPngCompressionContent}"
+              IsChecked="{Binding UseCustomPngCompression}" />
+            <TextBox Width="60"
+             Margin="8,0,0,0"
+             HorizontalContentAlignment="Left"
+             Text="{Binding CustomPngCompression, UpdateSourceTrigger=PropertyChanged}"
+             IsEnabled="{Binding IsChecked, ElementName=UseCustomPngCompressionCheckBox}" />
+            <tips:TooltipBlock TooltipText="{DynamicResource UseCustomPngCompressionTooltip}"/>
+        </StackPanel>
+
+    </Grid>
+
+</UserControl>

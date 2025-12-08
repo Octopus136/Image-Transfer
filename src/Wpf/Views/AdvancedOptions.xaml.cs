@@ -3,11 +3,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace ImageTransfer.Wpf.Views
+namespace ImgSizer.Wpf
 {
-    public partial class SingleTransferView
+    public partial class AdvancedOptionsView
     {
-        public SingleTransferView()
+        public AdvancedOptionsView()
         {
             InitializeComponent();
         }

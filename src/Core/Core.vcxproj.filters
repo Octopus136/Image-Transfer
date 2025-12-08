@@ -4,17 +4,76 @@
     <Filter Include="Interface">
       <UniqueIdentifier>{ab710864-e880-4751-9a9d-ac08338407a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Task">
+      <UniqueIdentifier>{ee931181-723a-47b5-aae2-5c8f7ef512e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs">
+      <UniqueIdentifier>{15ac4311-77d2-41bb-863f-3641bf02e26d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strategy">
+      <UniqueIdentifier>{c86e095d-eae1-42d4-bb57-99f7a259cf32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Task\ProgressControl">
+      <UniqueIdentifier>{f5ee833d-2c1a-4499-9bd0-e65aee965ad1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Interface\SingleTransfer.cpp">
+    <ClCompile Include="Interface\SingleSizeConvert.cpp">
       <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Codecs\DefaultCodecs.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\BinarySearchResolutionStrategy.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Task\Task.cpp">
+      <Filter>Task</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp" />
+    <ClCompile Include="Task\ProgressControl\DefaultProgressControl.cpp">
+      <Filter>Task\ProgressControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Task\ProgressControl\ProgressContext.cpp">
+      <Filter>Task\ProgressControl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Interface\SingleTransfer.h">
+    <ClInclude Include="Interface\SingleSizeConvert.h">
       <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="types.h" />
-    <ClInclude Include="common.hpp" />
+    <ClInclude Include="common.h" />
+    <ClInclude Include="utils.h" />
+    <ClInclude Include="Codecs\BasicCodecs.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="Codecs\DefaultCodecs.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\BasicStrategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\BinarySearchResolutionStrategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Task\Task.h">
+      <Filter>Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Codecs\Codecs.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\Strategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Task\ProgressControl\BasicProgressControl.h">
+      <Filter>Task\ProgressControl</Filter>
+    </ClInclude>
+    <ClInclude Include="Task\ProgressControl\DefaultProgressControl.h">
+      <Filter>Task\ProgressControl</Filter>
+    </ClInclude>
+    <ClInclude Include="Task\ProgressControl\ProgressContext.h">
+      <Filter>Task\ProgressControl</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

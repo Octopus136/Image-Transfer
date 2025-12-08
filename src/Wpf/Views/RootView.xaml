@@ -1,27 +1,114 @@
-﻿<Window x:Class="ImageTransfer.Wpf.Views.RootView"
+﻿<Window x:Class="ImgSizer.Wpf.RootView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:hc="https://handyorg.github.io/handycontrol"
-        xmlns:vm="clr-namespace:ImageTransfer.Wpf"
-        xmlns:views="clr-namespace:ImageTransfer.Wpf.Views"
-        Title="图片大小转换工具"
+        xmlns:vm="clr-namespace:ImgSizer.Wpf"
+        xmlns:s="https://github.com/canton7/Stylet"
+        Title="{DynamicResource RootViewTitle}"
         Width="640"
         MinWidth="640"
         SizeToContent="Height"
         ResizeMode="CanMinimize"
         Background="{DynamicResource RegionBrush}">
-    <Window.DataContext>
-        <vm:SingleTransfer />
-    </Window.DataContext>
+
+    <Window.Resources>
+        <Style TargetType="Label"
+                   BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="0" />
+        </Style>
+
+        <Style TargetType="TextBox"
+                    BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Margin" Value="0,4,0,4" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="Button"
+                   BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Margin" Value="8,4,0,4" />
+            <Setter Property="MinWidth" Value="80" />
+            <Setter Property="Padding" Value="12,4" />
+        </Style>
+
+        <Style TargetType="ComboBox"
+                              BasedOn="{StaticResource {x:Type ComboBox}}">
+            <Setter Property="Margin" Value="0,4,0,4" />
+            <Setter Property="MinWidth" Value="70" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <views:SingleTransferView Grid.Row="0" />
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,0,0">
+            <Label Content="{DynamicResource LanguageLabel}" BorderThickness="0" Margin="0,0,8,0"/>
+            <ComboBox Width="160"
+                      ItemsSource="{Binding Languages}"
+                      SelectedItem="{Binding SelectedLanguage}"
+                      DisplayMemberPath="DisplayName" />
+        </StackPanel>
 
-        <ProgressBar Grid.Row="1"
+        <ContentControl Grid.Row="1" s:View.Model="{Binding ActiveItem}" />
+
+        <Grid Grid.Row="2" x:Name="AdvancedHeaderRow">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ToggleButton x:Name="AdvancedHeader"
+                  Foreground="{DynamicResource PrimaryTextBrush}"
+                  Background="{DynamicResource RegionBrush}"
+                  FocusVisualStyle="{x:Null}"
+                  BorderThickness="0"
+                  HorizontalAlignment="Left"
+                  Margin="8,0,0,0"
+                  Grid.Column="0"
+                  IsChecked="{Binding AdvancedOptions.IsAdvancedOptionsExpanded, Mode=TwoWay}">
+
+                <StackPanel Orientation="Horizontal">
+                    <Path x:Name="ArrowPath"
+                  Width="10"
+                  Height="10"
+                  Stretch="Uniform"
+                  Margin="0,0,8,0"
+                  Fill="{DynamicResource PrimaryTextBrush}">
+                        <Path.Style>
+                            <Style TargetType="Path">
+                                <Setter Property="Data" Value="{StaticResource DownGeometry}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName=AdvancedHeader}" Value="True">
+                                        <Setter Property="Data" Value="{StaticResource UpGeometry}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Path.Style>
+                    </Path>
+                    <TextBlock Text="{DynamicResource AdvancedOptionsContent}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </ToggleButton>
+            <hc:Divider Grid.Column="1" LineStroke="{DynamicResource BorderBrush}" LineStrokeThickness="1"/>
+        </Grid>
+
+        <!-- 高级选项内容 -->
+        <Border x:Name="AdvancedPanel" Grid.Row="3" Background="{DynamicResource RegionBrush}" Visibility="Collapsed" Height="0" Margin="8,0,8,0">
+            <ContentControl x:Name="AdvancedContent" s:View.Model="{Binding AdvancedOptions}" />
+        </Border>
+
+        <ProgressBar Grid.Row="4"
                      Height="20"
                      Margin="0,12,0,0"
                      Minimum="0"

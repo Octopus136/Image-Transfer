@@ -1,0 +1,69 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!-- Title -->
+    <sys:String x:Key="RootViewTitle">圖片大小轉換工具</sys:String>
+
+    <!-- UI -->
+    <sys:String x:Key="LanguageLabel">語言</sys:String>
+    <sys:String x:Key="InputFileLabel">輸入檔案</sys:String>
+    <sys:String x:Key="OutputFileLabel">輸出檔案</sys:String>
+    <sys:String x:Key="BrowseButton">瀏覽...</sys:String>
+    <sys:String x:Key="TargetSizeLabel">目標大小</sys:String>
+    <sys:String x:Key="AboutButton">關於</sys:String>
+    <sys:String x:Key="StartConvertButton">開始轉換</sys:String>
+
+    <!-- content -->
+    <sys:String x:Key="AdvancedOptionsContent">進階選項（實驗性）</sys:String>
+    <sys:String x:Key="UseExperimentalStrategyContent">使用實驗性策略</sys:String>
+    <sys:String x:Key="UseCUDAContent">使用 CUDA 加速</sys:String>
+    <sys:String x:Key="UseCustomJpegQualityContent">使用自訂 JPEG 編碼品質</sys:String>
+    <sys:String x:Key="UseCustomPngCompressionContent">使用自訂 PNG 壓縮等級</sys:String>
+
+    <!-- tooltip -->
+    <sys:String x:Key="TargetSizeTooltip" xml:space="preserve">請輸入正數
+1 MB = 1024 KB
+實際輸出大小與目標大小的相對誤差小於 1% 即視為轉換成功</sys:String>
+
+    <sys:String x:Key="UseExperimentalStrategyTooltip" xml:space="preserve">允許使用實驗性策略，該策略大概率能降低耗時，但也有小概率適得其反
+本功能仍在開發中，暫時停用</sys:String>
+
+    <sys:String x:Key="UseCUDATooltip" xml:space="preserve">允許使用 CUDA 加速，必須具備支援 CUDA 的裝置
+本功能仍在開發中，暫時停用</sys:String>
+
+    <sys:String x:Key="UseCustomJpegQualityTooltip" xml:space="preserve">允許設定自訂 JPEG 品質參數，處理 PNG 圖片時此參數將被忽略
+允許值：1（最差） - 100（最佳）
+過低的品質可能會導致圖片出現明顯的方塊狀壓縮偽影
+預設值：95</sys:String>
+
+    <sys:String x:Key="UseCustomPngCompressionTooltip" xml:space="preserve">允許設定自訂 PNG 壓縮等級參數，處理 JPEG 圖片時此參數將被忽略
+允許值：0（最快、最大） - 9（最慢、最小）
+PNG 壓縮等級不會影響圖片畫質，壓縮等級越高可能導致明顯的運行時間增加，但也能大幅降低檔案大小
+預設值：1</sys:String>
+
+
+    <!-- Models -->
+
+    <!-- maybe unused -->
+    <sys:String x:Key="TargetSizeErrorRequired">請輸入目標大小</sys:String>
+    <sys:String x:Key="TargetSizeErrorInvalidNumber">請輸入大於 0 的數字，例如 1.5</sys:String>
+    <sys:String x:Key="InputOutputMissing">未選擇輸入與輸出路徑</sys:String>
+    <sys:String x:Key="InvalidTargetSize">目標大小不是合法數字</sys:String>
+
+    <!-- filter -->
+    <sys:String x:Key="ImageFileFilter">圖片檔案|*.png;*.jpg;*.jpeg|所有檔案|*.*</sys:String>
+
+    <!-- messagebox -->
+    <sys:String x:Key="AboutMessage" xml:space="preserve">ImgSizer v2.1 —— 精準控制圖片大小，輕鬆符合各類上傳限制。
+作者：_Burnside
+本軟體以 MIT 授權開源。若您曾為本軟體付費，請儘速與販售方聯繫。專案網址：https://github.com/Burnside999/ImgSizer</sys:String>
+    <sys:String x:Key="AboutTitle">關於</sys:String>
+    <sys:String x:Key="ConversionSuccess">轉換成功</sys:String>
+    <sys:String x:Key="ConversionFailedWithReasonFormat">轉換失敗：{0}</sys:String>
+
+    <!-- reason -->
+    <sys:String x:Key="ReasonSize">目標大小過大，請將輸出大小控制在原始大小的 10 倍以內</sys:String>
+    <sys:String x:Key="ReasonCodecs">內部編解碼錯誤，請嘗試減小目標大小與輸入圖片大小的差距，或嘗試其他圖片格式</sys:String>
+    <sys:String x:Key="ReasonParams">輸入路徑或目標大小有誤，請檢查傳入參數</sys:String>
+    <sys:String x:Key="ReasonUnknown">內部未知錯誤，請聯絡開發者</sys:String>
+</ResourceDictionary>

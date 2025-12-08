@@ -1,8 +1,8 @@
-﻿<UserControl x:Class="ImageTransfer.Wpf.Views.SingleTransferView"
+﻿<UserControl x:Class="ImgSizer.Wpf.SingleConvertView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:s="https://github.com/canton7/Stylet"
-             xmlns:controls="clr-namespace:Wpf.Styles.Controls"
+             xmlns:tips="clr-namespace:ImgSizer.Wpf.Styles.Controls"
              s:View.ActionTarget="{Binding}">
     <Grid>
         <Grid.RowDefinitions>
@@ -15,39 +15,9 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Grid.Resources>
-            <Style TargetType="Label"
-                           BasedOn="{StaticResource {x:Type Label}}">
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="HorizontalAlignment" Value="Left"/>
-                <Setter Property="Margin" Value="0" />
-            </Style>
-
-            <Style TargetType="TextBox"
-                            BasedOn="{StaticResource {x:Type TextBox}}">
-                <Setter Property="Margin" Value="0,4,0,4" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-            </Style>
-
-            <Style TargetType="Button"
-                           BasedOn="{StaticResource {x:Type Button}}">
-                <Setter Property="Margin" Value="8,4,0,4" />
-                <Setter Property="MinWidth" Value="80" />
-                <Setter Property="Padding" Value="12,4" />
-            </Style>
-
-            <Style TargetType="ComboBox"
-                                      BasedOn="{StaticResource {x:Type ComboBox}}">
-                <Setter Property="Margin" Value="0,4,0,4" />
-                <Setter Property="MinWidth" Value="70" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-            </Style>
-
-        </Grid.Resources>
         <Label Grid.Row="0"
                Grid.Column="0"
-               Content="输入文件" />
+               Content="{DynamicResource InputFileLabel}" />
         <Grid Grid.Row="0"
               Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -60,13 +30,13 @@
                      Text="{Binding InputPath, UpdateSourceTrigger=PropertyChanged}" />
 
             <Button Grid.Column="1"
-                    Content="浏览..."
+                    Content="{DynamicResource BrowseButton}"
                     Command="{s:Action BrowseInput}" />
         </Grid>
 
         <Label Grid.Row="1"
                Grid.Column="0"
-               Content="输出文件" />
+               Content="{DynamicResource OutputFileLabel}" />
         <Grid Grid.Row="1"
               Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -79,11 +49,11 @@
                      Text="{Binding OutputPath, UpdateSourceTrigger=PropertyChanged}" />
 
             <Button Grid.Column="1"
-                    Content="浏览..."
+                    Content="{DynamicResource BrowseButton}"
                     Command="{s:Action BrowseOutput}" />
         </Grid>
-        
-        <Label Grid.Row="2" Grid.Column="0" Content="目标大小"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource TargetSizeLabel}"/>
 
         <Grid Grid.Row="2"
               Grid.Column="1">
@@ -103,6 +73,7 @@
 
                         <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBorderBrush}" />
                         <Setter Property="ToolTip" Value="{x:Null}" />
+                        <Setter Property="Margin" Value="0,4,0,4"/>
 
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsTargetSizeValid}" Value="False">
@@ -118,18 +89,19 @@
             <ComboBox Grid.Column="1"
                       Width="80"
                       SelectedValuePath="Content"
-                      SelectedValue="{Binding Unit}">
+                      SelectedValue="{Binding Unit}"
+                      Margin="0,4,0,4">
                 <ComboBoxItem Content="MB" />
                 <ComboBoxItem Content="KB" />
             </ComboBox>
 
-            <controls:TooltipBlock Grid.Column="2" TooltipText="请输入正数&#x0a;1 MB = 1024 KB&#x0a;实际输出大小与目标大小的相对误差小于1%即视为转换成功"/>
+            <tips:TooltipBlock Grid.Column="2" TooltipText="{DynamicResource TargetSizeTooltip}"/>
 
             <Button Grid.Column="3"
-                    Content="关于"
+                    Content="{DynamicResource AboutButton}"
                            Command="{s:Action About}" />
             <Button Grid.Column="4"
-                    Content="开始转换"
+                    Content="{DynamicResource StartConvertButton}"
             Command="{s:Action Convert}" />
         </Grid>
     </Grid>
