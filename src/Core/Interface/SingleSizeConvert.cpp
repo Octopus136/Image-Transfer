@@ -40,7 +40,7 @@ namespace ImgSizer
                 &progressCtrl);
             ConvertResult result = task.Execute();
             Util::BridgeReportProgress(progressCallback, userData, 100);
-            return ConvertResult::OK;
+            return result;
         }
         catch (...)
         {
