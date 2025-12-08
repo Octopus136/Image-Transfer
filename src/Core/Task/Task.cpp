@@ -12,9 +12,9 @@ namespace ImgSizer {
 Task::Task(std::string inputPath,
            std::string outputPath,
            TargetParams target,
+           AdvancedOptions advancedOptions,
            std::string strategyName,
-           std::string codecsName,
-           int extensionParam)
+           std::string codecsName)
     : m_inputPath(std::move(inputPath))
     , m_outputPath(std::move(outputPath))
     , m_target(std::move(target))
@@ -25,15 +25,12 @@ Task::Task(std::string inputPath,
     m_encodeParams.pngCompression = 1;
     m_encodeParams.extension = Util::GetExtension(m_inputPath);
 
-    if (extensionParam >= 0) {
-        if (m_encodeParams.extension == ".jpg" ||
-            m_encodeParams.extension == ".jpeg")
-        {
-            m_encodeParams.jpgQuality = Util::clamp(extensionParam, 1, 100);
-        }
-        else if (m_encodeParams.extension == ".png") {
-            m_encodeParams.pngCompression = Util::clamp(extensionParam, 0, 9);
-        }
+    if (m_encodeParams.extension == ".jpg" || m_encodeParams.extension == ".jpeg")
+    {
+        m_encodeParams.jpgQuality = Util::clamp(advancedOptions.jpegQuality, 1, 100);
+    }
+    else if (m_encodeParams.extension == ".png") {
+        m_encodeParams.pngCompression = Util::clamp(advancedOptions.pngCompression, 0, 9);
     }
 }
 

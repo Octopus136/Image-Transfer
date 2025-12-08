@@ -14,9 +14,9 @@ public:
     Task(std::string inputPath,
          std::string outputPath,
          TargetParams target,
+         AdvancedOptions advancedOptions,
          std::string strategyName,
-         std::string codecsName,
-         int extensionParam);
+         std::string codecsName);
 
     ConvertResult Execute();
 

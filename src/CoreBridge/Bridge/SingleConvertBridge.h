@@ -18,6 +18,7 @@ namespace ImgSizer
                 System::String^ outputPath,
                 long long targetBytes,
                 long long originalBytes,
+                AdvancedOptions advancedOptions,
                 ProgressHandler^ progressCallback);
         };
     }

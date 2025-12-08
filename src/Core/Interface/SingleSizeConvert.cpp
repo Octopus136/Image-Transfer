@@ -11,16 +11,16 @@
 namespace ImgSizer
 {
     ISExport ConvertResult SingleSizeConvert(
-        const ConvertParams* params,
+        const SingleSizeConvertParams* params,
         ProgressCallback progressCallback,
         void* userData)
     {
-        if (!params || params->inputPath.empty() || params->outputPath.empty())
+        if (!params || params->convertParams.inputPath.empty() || params->convertParams.outputPath.empty())
         {
             return ConvertResult::ErrParams;
         }
 
-        if (params->targetBytes > 10 * params->originalBytes) {
+        if (params->convertParams.targetBytes > 10 * params->convertParams.originalBytes) {
             return ConvertResult::ErrSize;
         }
 
@@ -28,12 +28,12 @@ namespace ImgSizer
         {
             Util::BridgeReportProgress(progressCallback, userData, 0);
             Task task(
-                std::string(params->inputPath),
-                std::string(params->outputPath),
-                { params->targetBytes, 0.01 },
+                std::string(params->convertParams.inputPath),
+                std::string(params->convertParams.outputPath),
+                { params->convertParams.targetBytes, 0.01 },
+                params->advancedOptions,
                 "default",
-                "default",
-                0);
+                "default");
             ConvertResult result = task.Execute();
             Util::BridgeReportProgress(progressCallback, userData, 100);
             return ConvertResult::OK;

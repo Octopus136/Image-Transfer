@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using BridgeSingleConvert = ImgSizer.Bridge.SingleConvert;
 using BridgeConvertResult = ImgSizer.Bridge.ConvertResult;
+using BridgeAdvancedOptions = ImgSizer.Bridge.AdvancedOptions;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Windows;
@@ -17,6 +18,11 @@ namespace ImgSizer.Wpf
 {
     public class SingleConvertViewModel : Screen
     {
+        public AdvancedOptionsViewModel AdvancedOptions { get; }
+        public SingleConvertViewModel(AdvancedOptionsViewModel advancedOptions)
+        {
+            AdvancedOptions = advancedOptions;
+        }
 
         private long _sourceBytes;
         public long SourceBytes
@@ -252,11 +258,14 @@ namespace ImgSizer.Wpf
                 {
                     try
                     {
+                        var advancedOptions = BuildAdvancedOptions();
+
                         return BridgeSingleConvert.Convert(
                             InputPath,
                             OutputPath,
                             targetBytes,
                             SourceBytes,
+                            advancedOptions,
                             progress => System.Windows.Application.Current.Dispatcher.Invoke(() =>
                             {
                                 Progress = progress;
@@ -292,5 +301,32 @@ namespace ImgSizer.Wpf
                                   && !string.IsNullOrWhiteSpace(OutputPath)
                                   && !string.IsNullOrWhiteSpace(TargetSize)
                                   && IsTargetSizeValid;
+
+        private BridgeAdvancedOptions BuildAdvancedOptions()
+        {
+            var options = new BridgeAdvancedOptions();
+
+            options.useExperimentalStrategy = false; // AdvancedOptions.UseExperimentalStrategy;
+            options.useCUDA = false;                // AdvancedOptions.UseCUDA;
+
+            // JPEG 质量
+            int jpegQuality = AdvancedOptions.UseCustomJpegQuality
+                ? AdvancedOptions.CustomJpegQuality
+                : 95;
+
+            // PNG 压缩
+            int pngCompression = AdvancedOptions.UseCustomPngCompression
+                ? AdvancedOptions.CustomPngCompression
+                : 1;
+
+            jpegQuality = jpegQuality < 0 ? 0 : (jpegQuality > 100 ? 100 : jpegQuality);
+            pngCompression = pngCompression < 0 ? 0 : (pngCompression > 9 ? 9 : pngCompression);
+
+            options.jpegQuality = jpegQuality;
+            options.pngCompression = pngCompression;
+
+            return options;
+        }
+
     }
 }

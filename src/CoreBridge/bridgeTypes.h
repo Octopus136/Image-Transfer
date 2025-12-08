@@ -14,5 +14,12 @@ namespace ImgSizer
             ErrCodecs = 3,
             ErrUnknown = 4,
         };
+
+        public value struct AdvancedOptions {
+            bool useExperimentalStrategy;
+            bool useCUDA;
+            int jpegQuality;
+            int pngCompression;
+        };
     }
 }

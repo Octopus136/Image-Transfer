@@ -35,6 +35,7 @@ namespace ImgSizer
             String^ outputPath,
             long long targetBytes,
             long long originalBytes,
+            AdvancedOptions advancedOptions,
             ProgressHandler^ progressCallback)
         {
             if (String::IsNullOrWhiteSpace(inputPath) || String::IsNullOrWhiteSpace(outputPath))
@@ -45,11 +46,16 @@ namespace ImgSizer
             std::string inputNative  = marshal_as<std::string>(inputPath);
             std::string outputNative = marshal_as<std::string>(outputPath);
 
-            ConvertParams params{};
-            params.inputPath   = inputNative;
-            params.outputPath  = outputNative;
-            params.targetBytes = static_cast<std::int64_t>(targetBytes);
-            params.originalBytes = static_cast<std::int64_t>(originalBytes);
+            SingleSizeConvertParams params{};
+            params.convertParams.inputPath   = inputNative;
+            params.convertParams.outputPath  = outputNative;
+            params.convertParams.targetBytes = static_cast<std::int64_t>(targetBytes);
+            params.convertParams.originalBytes = static_cast<std::int64_t>(originalBytes);
+
+            params.advancedOptions.useExperimentalStrategy = advancedOptions.useExperimentalStrategy;
+            params.advancedOptions.useCUDA = advancedOptions.useCUDA;
+            params.advancedOptions.jpegQuality = advancedOptions.jpegQuality;
+            params.advancedOptions.pngCompression = advancedOptions.pngCompression;
 
             gcroot<ProgressHandler^>* handlerRoot = nullptr;
             ProgressCallback nativeCallback = nullptr;

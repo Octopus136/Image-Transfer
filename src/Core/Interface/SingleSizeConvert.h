@@ -3,7 +3,7 @@
 
 namespace ImgSizer {
     ISExport ConvertResult SingleSizeConvert(
-        const ConvertParams* params,
+        const SingleSizeConvertParams* params,
         ProgressCallback progressCallback,
         void* userData);
 };
