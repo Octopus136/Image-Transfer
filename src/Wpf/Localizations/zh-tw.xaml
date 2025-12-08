@@ -61,7 +61,7 @@ PNG 壓縮等級不會影響圖片畫質，壓縮等級越高可能導致明顯�
 
     <!-- reason -->
     <sys:String x:Key="ReasonSize">目標大小過大，請將輸出大小控制在原始大小的 10 倍以內</sys:String>
-    <sys:String x:Key="ReasonCodecs">內部編解碼錯誤，請嘗試其他圖片格式</sys:String>
+    <sys:String x:Key="ReasonCodecs">內部編解碼錯誤，請嘗試減小目標大小與輸入圖片大小的差距，或嘗試其他圖片格式</sys:String>
     <sys:String x:Key="ReasonParams">輸入路徑或目標大小有誤，請檢查傳入參數</sys:String>
     <sys:String x:Key="ReasonUnknown">內部未知錯誤，請聯絡開發者</sys:String>
 </ResourceDictionary>

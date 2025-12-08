@@ -61,7 +61,7 @@ Default value: 1</sys:String>
 
     <!-- reason -->
     <sys:String x:Key="ReasonSize">Target size is too large; please keep the output size within 10× of the original file</sys:String>
-    <sys:String x:Key="ReasonCodecs">Internal codec error; please try another image format</sys:String>
+    <sys:String x:Key="ReasonCodecs">Internal codec error; please try reducing the size difference between the target size and the input image, or try another image format.</sys:String>
     <sys:String x:Key="ReasonParams">Input path or target size is invalid; please check the parameters</sys:String>
     <sys:String x:Key="ReasonUnknown">An unknown internal error occurred; please contact the developer</sys:String>
 </ResourceDictionary>

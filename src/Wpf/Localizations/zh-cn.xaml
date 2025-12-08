@@ -61,7 +61,7 @@ PNG 压缩等级不会影响图像画质，压缩等级越大可能会导致显�
 
     <!-- reason -->
     <sys:String x:Key="ReasonSize">目标大小太大，请控制输出大小在原始大小的 10 倍以内</sys:String>
-    <sys:String x:Key="ReasonCodecs">内部编解码错误，请尝试其他图像格式</sys:String>
-    <sys:String x:Key="ReasonParams">输入路径或目标大小有无，请检查传入参数</sys:String>
+    <sys:String x:Key="ReasonCodecs">内部编解码错误，请尝试减小目标大小与传入图像大小的差距，或尝试其他图像格式</sys:String>
+    <sys:String x:Key="ReasonParams">输入路径或目标大小有误，请检查传入参数</sys:String>
     <sys:String x:Key="ReasonUnknown">内部未知错误，请联系开发者</sys:String>
 </ResourceDictionary>
