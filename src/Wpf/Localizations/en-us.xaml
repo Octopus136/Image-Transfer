@@ -54,7 +54,9 @@ Default value: 1</sys:String>
     <sys:String x:Key="ImageFileFilter">Image Files|*.png;*.jpg;*.jpeg|All Files|*.*</sys:String>
 
     <!-- messagebox -->
-    <sys:String x:Key="AboutMessage">There is nothing here</sys:String>
+    <sys:String x:Key="AboutMessage" xml:space="preserve">ImgSizer v2.1 – Precisely resize images to meet strict upload size limits.
+Author: YourName
+This software is open-source under the MIT license. If you paid for this software, please contact the seller immediately. Project page: https://github.com/Burnside999/ImgSizer</sys:String>
     <sys:String x:Key="AboutTitle">About</sys:String>
     <sys:String x:Key="ConversionSuccess">Conversion Successful</sys:String>
     <sys:String x:Key="ConversionFailedWithReasonFormat">Conversion Failed: {0}</sys:String>

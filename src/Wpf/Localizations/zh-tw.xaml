@@ -54,7 +54,9 @@ PNG 壓縮等級不會影響圖片畫質，壓縮等級越高可能導致明顯�
     <sys:String x:Key="ImageFileFilter">圖片檔案|*.png;*.jpg;*.jpeg|所有檔案|*.*</sys:String>
 
     <!-- messagebox -->
-    <sys:String x:Key="AboutMessage">這裡什麼都沒有喔</sys:String>
+    <sys:String x:Key="AboutMessage" xml:space="preserve">ImgSizer v2.1 —— 精準控制圖片大小，輕鬆符合各類上傳限制。
+作者：_Burnside
+本軟體以 MIT 授權開源。若您曾為本軟體付費，請儘速與販售方聯繫。專案網址：https://github.com/Burnside999/ImgSizer</sys:String>
     <sys:String x:Key="AboutTitle">關於</sys:String>
     <sys:String x:Key="ConversionSuccess">轉換成功</sys:String>
     <sys:String x:Key="ConversionFailedWithReasonFormat">轉換失敗：{0}</sys:String>

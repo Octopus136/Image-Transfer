@@ -54,7 +54,9 @@ PNG 压缩等级不会影响图像画质，压缩等级越大可能会导致显�
     <sys:String x:Key="ImageFileFilter">图片文件|*.png;*.jpg;*.jpeg|所有文件|*.*</sys:String>
     
     <!-- messagebox -->
-    <sys:String x:Key="AboutMessage">这里什么都没有哦</sys:String>
+    <sys:String x:Key="AboutMessage" xml:space="preserve">ImgSizer v2.1 —— 精准控制图片大小，轻松满足各类上传限制。
+作者：_Burnside
+本软件基于 MIT 协议开源。若您为本软件付费，请尽快与出售方联系。项目地址：https://github.com/Burnside999/ImgSizer</sys:String>
     <sys:String x:Key="AboutTitle">关于</sys:String>
     <sys:String x:Key="ConversionSuccess">转换成功</sys:String>
     <sys:String x:Key="ConversionFailedWithReasonFormat">转换失败：{0}</sys:String>
