@@ -15,6 +15,13 @@ enum class ConvertResult
 
 typedef void(__stdcall* ProgressCallback)(int progress, void* userData);
 
+struct AdvancedOptions {
+    bool useExperimentalStrategy;
+    bool useCUDA;
+    int jpegQuality;
+    int pngCompression;
+};
+
 struct ConvertParams
 {
     std::string inputPath;
@@ -23,12 +30,11 @@ struct ConvertParams
     std::size_t originalBytes;
 };
 
-struct EncodeParams {
-    int jpgQuality;
-    int pngCompression;
-    int width;
-    int height;
-    std::string extension;
+/* Interface Signatures */
+
+struct SingleSizeConvertParams {
+    ConvertParams convertParams;
+    AdvancedOptions advancedOptions;
 };
 
 }

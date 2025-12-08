@@ -27,7 +27,7 @@
     <ClCompile Include="Task\Task.cpp">
       <Filter>Task</Filter>
     </ClCompile>
-    <ClCompile Include="Strategy\utils.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Interface\SingleSizeConvert.h">

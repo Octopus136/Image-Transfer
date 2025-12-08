@@ -7,6 +7,14 @@
 
 namespace ImgSizer {
 
+struct EncodeParams {
+    int jpgQuality;
+    int pngCompression;
+    int width;
+    int height;
+    std::string extension;
+};
+
 struct CodecsResult {
 	std::size_t fileSizeBytes = 0;
 	std::vector<std::uint8_t> buffer;
