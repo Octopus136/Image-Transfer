@@ -21,5 +21,13 @@ namespace ImgSizer {
             progress = clamp(progress, 0, 100);
             callback(progress, userData);
         };
+
+        double ProgressPercentModel(int attemptCount, double k)
+        {
+            if (attemptCount <= 0)
+                return 0.0;
+
+            return static_cast<double>(attemptCount) / (static_cast<double>(attemptCount) + k);
+        }
     }
 };

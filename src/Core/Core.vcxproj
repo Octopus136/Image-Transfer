@@ -22,6 +22,8 @@
     <ClCompile Include="Codecs\DefaultCodecs.cpp" />
     <ClCompile Include="Interface\SingleSizeConvert.cpp" />
     <ClCompile Include="Strategy\BinarySearchResolutionStrategy.cpp" />
+    <ClCompile Include="Task\ProgressControl\DefaultProgressControl.cpp" />
+    <ClCompile Include="Task\ProgressControl\ProgressContext.cpp" />
     <ClCompile Include="Task\Task.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
@@ -36,6 +38,9 @@
     <ClInclude Include="Strategy\BasicStrategy.h" />
     <ClInclude Include="Strategy\BinarySearchResolutionStrategy.h" />
     <ClInclude Include="Strategy\Strategy.h" />
+    <ClInclude Include="Task\ProgressControl\DefaultProgressControl.h" />
+    <ClInclude Include="Task\ProgressControl\BasicProgressControl.h" />
+    <ClInclude Include="Task\ProgressControl\ProgressContext.h" />
     <ClInclude Include="Task\Task.h" />
     <ClInclude Include="types.h" />
     <ClInclude Include="utils.h">

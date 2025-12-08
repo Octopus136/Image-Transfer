@@ -24,6 +24,9 @@ namespace ImgSizer
             return ConvertResult::ErrSize;
         }
 
+        ProgressContext progressCtx(1, progressCallback, userData);
+        DefaultProgressControl progressCtrl(&progressCtx, 0);
+
         try
         {
             Util::BridgeReportProgress(progressCallback, userData, 0);
@@ -33,7 +36,8 @@ namespace ImgSizer
                 { params->convertParams.targetBytes, 0.01 },
                 params->advancedOptions,
                 "default",
-                "default");
+                "default",
+                &progressCtrl);
             ConvertResult result = task.Execute();
             Util::BridgeReportProgress(progressCallback, userData, 100);
             return ConvertResult::OK;

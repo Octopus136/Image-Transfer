@@ -12,5 +12,7 @@ namespace ImgSizer {
         std::string GetExtension(const std::string& path);
 
         void BridgeReportProgress(const ProgressCallback& callback, void* userData, int progress);
+
+        double ProgressPercentModel(int attemptCount, double k = 2.5);
     }
 };

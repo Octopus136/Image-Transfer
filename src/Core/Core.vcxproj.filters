@@ -13,6 +13,9 @@
     <Filter Include="Strategy">
       <UniqueIdentifier>{c86e095d-eae1-42d4-bb57-99f7a259cf32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Task\ProgressControl">
+      <UniqueIdentifier>{f5ee833d-2c1a-4499-9bd0-e65aee965ad1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Interface\SingleSizeConvert.cpp">
@@ -28,6 +31,12 @@
       <Filter>Task</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="Task\ProgressControl\DefaultProgressControl.cpp">
+      <Filter>Task\ProgressControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Task\ProgressControl\ProgressContext.cpp">
+      <Filter>Task\ProgressControl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Interface\SingleSizeConvert.h">
@@ -56,6 +65,15 @@
     </ClInclude>
     <ClInclude Include="Strategy\Strategy.h">
       <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Task\ProgressControl\BasicProgressControl.h">
+      <Filter>Task\ProgressControl</Filter>
+    </ClInclude>
+    <ClInclude Include="Task\ProgressControl\DefaultProgressControl.h">
+      <Filter>Task\ProgressControl</Filter>
+    </ClInclude>
+    <ClInclude Include="Task\ProgressControl\ProgressContext.h">
+      <Filter>Task\ProgressControl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

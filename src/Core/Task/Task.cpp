@@ -14,12 +14,14 @@ Task::Task(std::string inputPath,
            TargetParams target,
            AdvancedOptions advancedOptions,
            std::string strategyName,
-           std::string codecsName)
+           std::string codecsName,
+           BasicProgressControl* progressCtrl)
     : m_inputPath(std::move(inputPath))
     , m_outputPath(std::move(outputPath))
     , m_target(std::move(target))
     , m_strategyName(std::move(strategyName))
     , m_codecsName(std::move(codecsName))
+    , m_progressCtrl(progressCtrl)
 {
     m_encodeParams.jpgQuality = 95;
     m_encodeParams.pngCompression = 1;
@@ -49,6 +51,9 @@ ConvertResult Task::Execute()
     CodecsResult lastAttempt{};
     EncodeParams nextParams{};
 
+    int n_attempt = 0;
+    ReportProgress(0.0);
+
     while (true)
     {
         StrategyStepResult step = m_strategy->Next(lastAttempt, nextParams);
@@ -62,6 +67,7 @@ ConvertResult Task::Execute()
         }
 
         lastAttempt = m_codecs->Run(nextParams);
+        ReportProgress(Util::ProgressPercentModel(++n_attempt));
     }
 
     std::ofstream ofs(m_outputPath, std::ios::binary);

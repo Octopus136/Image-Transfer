@@ -6,6 +6,7 @@
 #include "types.h"
 #include "Codecs/BasicCodecs.h"
 #include "Strategy/BasicStrategy.h"
+#include "ProgressControl/BasicProgressControl.h"
 
 namespace ImgSizer {
 
@@ -16,7 +17,8 @@ public:
          TargetParams target,
          AdvancedOptions advancedOptions,
          std::string strategyName,
-         std::string codecsName);
+         std::string codecsName,
+         BasicProgressControl* progressCtrl);
 
     ConvertResult Execute();
 
@@ -31,9 +33,17 @@ private:
     std::unique_ptr<BasicCodecs> m_codecs;
     std::unique_ptr<BasicStrategy> m_strategy;
 
+    BasicProgressControl* m_progressCtrl = nullptr;
+
 private:
     bool CreateCodecs();
     bool CreateStrategy();
+
+    void ReportProgress(double ratio) {
+        if (m_progressCtrl) {
+            m_progressCtrl->Report(ratio);
+        }
+    }
 };
 
 }
