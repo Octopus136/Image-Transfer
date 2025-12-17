@@ -49,6 +49,21 @@
             <tips:TooltipBlock TooltipText="{DynamicResource UseCustomPngCompressionTooltip}"/>
         </StackPanel>
 
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,4,0,4">
+            <CheckBox x:Name="UseCustomToleranceCheckBox"
+                      Content="{DynamicResource UseCustomToleranceContent}"
+                      IsChecked="{Binding UseCustomTolerance}" />
+            <TextBox Width="60"
+                     Margin="8,0,0,0"
+                     HorizontalContentAlignment="Left"
+                     Text="{Binding CustomTolerance, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding IsChecked, ElementName=UseCustomToleranceCheckBox}" />
+            <TextBlock Text="%"
+                       Margin="4,0,0,0"
+                       VerticalAlignment="Center" />
+            <tips:TooltipBlock TooltipText="{DynamicResource UseCustomToleranceTooltip}"/>
+        </StackPanel>
+
     </Grid>
 
 </UserControl>

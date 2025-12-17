@@ -319,11 +319,17 @@ namespace ImgSizer.Wpf
                 ? AdvancedOptions.CustomPngCompression
                 : 1;
 
+            double tolerancePercent = AdvancedOptions.UseCustomTolerance
+                ? AdvancedOptions.CustomTolerance
+                : 1.0;
+
             jpegQuality = jpegQuality < 0 ? 0 : (jpegQuality > 100 ? 100 : jpegQuality);
             pngCompression = pngCompression < 0 ? 0 : (pngCompression > 9 ? 9 : pngCompression);
+            tolerancePercent = tolerancePercent < 0 ? 0 : (tolerancePercent > 100 ? 100 : tolerancePercent);
 
             options.jpegQuality = jpegQuality;
             options.pngCompression = pngCompression;
+            options.toleranceRatio = tolerancePercent / 100.0;
 
             return options;
         }

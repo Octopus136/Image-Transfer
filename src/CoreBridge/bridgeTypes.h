@@ -20,6 +20,7 @@ namespace ImgSizer
             bool useCUDA;
             int jpegQuality;
             int pngCompression;
+            double toleranceRatio;
         };
     }
 }

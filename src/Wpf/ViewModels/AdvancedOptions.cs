@@ -42,7 +42,21 @@ namespace ImgSizer.Wpf
             set => SetAndNotify(ref _customPngCompression, value);
         }
 
-        // 以后如果你要根据扩展名决定 extensionParam 的含义，也可以在这里加 Helper 方法
+        // 自定义容忍度（%）
+        private bool _useCustomTolerance;
+        public bool UseCustomTolerance
+        {
+            get => _useCustomTolerance;
+            set => SetAndNotify(ref _useCustomTolerance, value);
+        }
+
+        private double _customTolerance = 1.0;
+        public double CustomTolerance
+        {
+            get => _customTolerance;
+            set => SetAndNotify(ref _customTolerance, value);
+        }
+
         private bool _isAdvancedOptionsExpanded;
         public bool IsAdvancedOptionsExpanded
         {
