@@ -19,6 +19,7 @@
     <sys:String x:Key="UseCUDAContent">Use CUDA Acceleration</sys:String>
     <sys:String x:Key="UseCustomJpegQualityContent">Use Custom JPEG Quality</sys:String>
     <sys:String x:Key="UseCustomPngCompressionContent">Use Custom PNG Compression Level</sys:String>
+    <sys:String x:Key="UseCustomToleranceContent">Use Custom Tolerance</sys:String>
 
     <!-- tooltip -->
     <sys:String x:Key="TargetSizeTooltip" xml:space="preserve">Please enter a positive number
@@ -41,6 +42,9 @@ Allowed range: 0 (fastest, largest) – 9 (slowest, smallest)
 PNG compression level does not affect image quality. Higher levels may significantly increase processing time but can reduce file size
 Default value: 1</sys:String>
 
+    <sys:String x:Key="UseCustomToleranceTooltip" xml:space="preserve">Allows setting a custom tolerance for the acceptable difference between the final file size and the target size
+The value is a percentage; for example, 1 means 1%
+Default value: 1%</sys:String>
 
     <!-- Models -->
 

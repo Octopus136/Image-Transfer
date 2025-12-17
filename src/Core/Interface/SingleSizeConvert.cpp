@@ -33,7 +33,7 @@ namespace ImgSizer
             Task task(
                 std::string(params->convertParams.inputPath),
                 std::string(params->convertParams.outputPath),
-                { params->convertParams.targetBytes, 0.01 },
+                { params->convertParams.targetBytes, params->advancedOptions.toleranceRatio },
                 params->advancedOptions,
                 "default",
                 "default",

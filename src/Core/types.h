@@ -20,6 +20,7 @@ struct AdvancedOptions {
     bool useCUDA;
     int jpegQuality;
     int pngCompression;
+	double toleranceRatio;
 };
 
 struct ConvertParams

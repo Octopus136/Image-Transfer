@@ -56,6 +56,7 @@ namespace ImgSizer
             params.advancedOptions.useCUDA = advancedOptions.useCUDA;
             params.advancedOptions.jpegQuality = advancedOptions.jpegQuality;
             params.advancedOptions.pngCompression = advancedOptions.pngCompression;
+            params.advancedOptions.toleranceRatio = advancedOptions.toleranceRatio;
 
             gcroot<ProgressHandler^>* handlerRoot = nullptr;
             ProgressCallback nativeCallback = nullptr;

@@ -19,6 +19,7 @@
     <sys:String x:Key="UseCUDAContent">使用 CUDA 加速</sys:String>
     <sys:String x:Key="UseCustomJpegQualityContent">使用自訂 JPEG 編碼品質</sys:String>
     <sys:String x:Key="UseCustomPngCompressionContent">使用自訂 PNG 壓縮等級</sys:String>
+    <sys:String x:Key="UseCustomToleranceContent">使用自訂容忍度</sys:String>
 
     <!-- tooltip -->
     <sys:String x:Key="TargetSizeTooltip" xml:space="preserve">請輸入正數
@@ -41,6 +42,9 @@
 PNG 壓縮等級不會影響圖片畫質，壓縮等級越高可能導致明顯的運行時間增加，但也能大幅降低檔案大小
 預設值：1</sys:String>
 
+    <sys:String x:Key="UseCustomToleranceTooltip" xml:space="preserve">允許設定自訂的目標大小誤差容忍度
+取值為百分比，例如 1 代表允許 1% 的誤差
+預設值：1%</sys:String>
 
     <!-- Models -->
 
